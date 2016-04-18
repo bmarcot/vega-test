@@ -26,7 +26,7 @@ int main()
 	}
 
 	for (int i = 0; i < 4; i++) {
-		while (vals[i] < 100)
+		while (vals[i] < 10)
 			pthread_yield();
 	}
 
