@@ -19,7 +19,8 @@ function run_test {
 for testname in \
     test_1 \
     thread_1 \
-    thread_2
+    thread_2 \
+    msleep_1
 do
     run_test $testname
 done
