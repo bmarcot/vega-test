@@ -20,7 +20,8 @@ for testname in \
     test_1 \
     thread_1 \
     thread_2 \
-    msleep_1
+    msleep_1 \
+    mm_1
 do
     run_test $testname
 done
