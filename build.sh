@@ -21,7 +21,9 @@ for testname in \
     thread_1 \
     thread_2 \
     msleep_1 \
-    mm_1
+    mm_1 \
+    timer_1 \
+    timer_2
 do
     run_test $testname
 done
