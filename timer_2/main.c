@@ -2,6 +2,8 @@
 #include "pthread.h"
 #include "unit.h"
 
+extern void msleep(unsigned int);
+
 int vals[] = {0, 0, 0, 0};
 
 void *fn(void *arg)
