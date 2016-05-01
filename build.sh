@@ -24,7 +24,9 @@ for testname in \
     mm_1 \
     mm_2 \
     timer_1 \
-    timer_2
+    timer_2 \
+    mutex_1 \
+    mutex_2
 do
     run_test $testname
 done
