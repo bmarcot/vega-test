@@ -22,6 +22,7 @@ for testname in \
     thread_2 \
     msleep_1 \
     mm_1 \
+    mm_2 \
     timer_1 \
     timer_2
 do
