@@ -26,7 +26,8 @@ for testname in \
     timer_1 \
     timer_2 \
     mutex_1 \
-    mutex_2
+    mutex_2 \
+    syscall_1
 do
     run_test $testname
 done
