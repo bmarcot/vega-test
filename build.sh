@@ -6,7 +6,7 @@ function run_test {
     echo -e "running test:  $1"
     echo -e "time        :  $(date)\n"
 
-    if ! make PLATFORM=qemu SEMIHOSTING=1 TEST=$1 --file vega-test-master/Makefile clean all run-with-semihosting \
+    if ! make PLATFORM=qemu SEMIHOSTING=1 TEST=$1 --file vega-test/Makefile clean all run-with-semihosting \
 	| tee /dev/tty | grep --quiet 'test passed'; then
 	exit 1
     fi
