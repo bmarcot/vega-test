@@ -27,6 +27,8 @@ for testname in \
     timer_2 \
     mutex_1 \
     mutex_2 \
+    mutex_3 \
+    mutex_4 \
     syscall_1 \
     irqaction_1
 do
