@@ -30,7 +30,8 @@ for testname in \
     mutex_3 \
     mutex_4 \
     syscall_1 \
-    irqaction_1
+    irqaction_1 \
+    sysconf_1
 do
     run_test $testname
 done
