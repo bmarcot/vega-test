@@ -31,7 +31,9 @@ for testname in \
     mutex_4 \
     syscall_1 \
     irqaction_1 \
-    sysconf_1
+    sysconf_1 \
+    itoa_1 \
+    sprintf_1
 do
     run_test $testname
 done
