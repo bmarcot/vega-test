@@ -20,7 +20,8 @@ testsuite = [
     "irqaction_1",
     "sysconf_1",
     "itoa_1",
-    "sprintf_1"
+    "sprintf_1",
+    "ucontext_1"
 ]
 
 def print_header(testname):
