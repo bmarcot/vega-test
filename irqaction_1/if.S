@@ -3,7 +3,7 @@
 	.thumb
 
 #include "linux/linkage.h"
-#include "../asm-pseudo.S"
+#include "../pseudo.S"
 
 #define SYS_TIMER_CREATE 6
 
