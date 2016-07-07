@@ -1,7 +1,9 @@
-#include <stdlib.h>
+#include "libc/stdlib.h"
 #include "kernel.h"
 #include "pthread.h"
 #include "unit.h"
+#include "sys/cdefs.h"
+#include "libc/stddef.h"
 
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 int has_waited;
@@ -24,7 +26,7 @@ int main(void)
 {
 	pthread_t tid;
 
-	if (pthread_create(&tid, fn, NULL))
+	if (pthread_create(&tid, NULL, fn, NULL))
 		printk("error: Could not create new thread.\n");
 
 	if (pthread_mutex_lock(&lock))

@@ -1,6 +1,7 @@
 #include "kernel.h"
 #include "pthread.h"
 #include "unit.h"
+#include "linux/stddef.h"
 
 int vals[] = {0, 0, 0, 0};
 
@@ -19,7 +20,7 @@ int main()
 	pthread_t tips[4];
 
 	for (int i = 0; i < 4; i++) {
-		if (pthread_create(&tips[i], fn, (void *) i)) {
+		if (pthread_create(&tips[i], NULL, fn, (void *) i)) {
 			printk("failed: can't create new posix thread.\n");
 			TEST_EXIT(1);
 		}

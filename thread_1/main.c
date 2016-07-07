@@ -3,6 +3,7 @@
 #include "kernel.h"
 #include "pthread.h"
 #include "unit.h"
+#include "linux/stddef.h"
 
 static int val = 123;
 
@@ -17,7 +18,7 @@ int main()
 {
 	pthread_t tip;
 
-	if (pthread_create(&tip, fn, (void *) 321)) {
+	if (pthread_create(&tip, NULL, fn, (void *) 321)) {
 		printk("failed: can't create new posix thread.\n");
 		TEST_EXIT(1);
 	}
