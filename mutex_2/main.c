@@ -1,9 +1,10 @@
-#include "libc/stdlib.h"
+#include <stddef.h>
+#include <stdlib.h>
+#include <sys/cdefs.h>
+
 #include "kernel.h"
 #include "pthread.h"
 #include "unit.h"
-#include "sys/cdefs.h"
-#include "libc/stddef.h"
 
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 int has_waited;
