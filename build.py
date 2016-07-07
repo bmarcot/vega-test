@@ -35,6 +35,7 @@ testsuite_v6m = [
     "mm_2",
     "timer_1",
     "timer_2",
+    "syscall_1",
     "sysconf_1",
     "itoa_1",
     "sprintf_1",
