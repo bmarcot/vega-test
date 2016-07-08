@@ -1,6 +1,6 @@
 #include "kernel.h"
 #include "unit.h"
-#include "irqaction.h"
+#include <kernel/irqaction.h>
 
 int sysvect_register(unsigned ix, void *(*fn)());
 int sys_stage_irqaction(void);
