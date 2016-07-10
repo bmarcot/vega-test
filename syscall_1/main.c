@@ -7,7 +7,7 @@ int dummy_2_args();
 int dummy_3_args();
 int dummy_4_args();
 
-int sysvect_register(unsigned ix, void *(*fn)());
+int syscall_register(unsigned ix, void *(*fn)());
 
 void *sys_0_arg(void)
 {
@@ -58,11 +58,11 @@ int main(void *arg)
 {
 	(void) arg;
 
-	sysvect_register(4, sys_0_arg);
-	sysvect_register(5, sys_1_arg);
-	sysvect_register(6, sys_2_arg);
-	sysvect_register(7, sys_3_arg);
-	sysvect_register(8, sys_4_arg);
+	syscall_register(4, sys_0_arg);
+	syscall_register(5, sys_1_arg);
+	syscall_register(6, sys_2_arg);
+	syscall_register(7, sys_3_arg);
+	syscall_register(8, sys_4_arg);
 
 	printk("testing syscall with %d arg(s)...\n", 0);
 	if (dummy_0_arg(0) != 0) {

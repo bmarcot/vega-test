@@ -2,7 +2,7 @@
 #include "unit.h"
 #include <kernel/irqaction.h>
 
-int sysvect_register(unsigned ix, void *(*fn)());
+int syscall_register(unsigned ix, void *(*fn)());
 int sys_stage_irqaction(void);
 
 #define SYS_TIMER_CREATE 6
@@ -35,7 +35,7 @@ int main(void *arg)
 
 	/* We use a syscall to emulate an irq for now, investigate SW Interrupt
 	 * feature in the NVIC or target CPU instead.    */
-	sysvect_register(SYS_STAGE_IRQACTION, sys_stage_irqaction_1);
+	syscall_register(SYS_STAGE_IRQACTION, sys_stage_irqaction_1);
 
 	sys_stage_irqaction();
 	if (!counter) {
