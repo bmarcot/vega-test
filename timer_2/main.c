@@ -1,5 +1,7 @@
 #include <stddef.h>
 
+#include <kernel/thread.h>
+
 #include "kernel.h"
 #include "pthread.h"
 #include "unit.h"
@@ -28,9 +30,11 @@ int main()
 		}
 	}
 
+	pthread_yield();
+
 	for (int i = 0; i < 4; i++) {
 		while (vals[i] == 0)
-			pthread_yield();
+			;
 	}
 
 	TEST_EXIT(0);
