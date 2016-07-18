@@ -1,0 +1,45 @@
+#include "linux/stddef.h"
+#include "kernel.h"
+#include "pthread.h"
+#include "unit.h"
+#include "sys/resource.h"
+
+#include <kernel/scheduler.h>
+#include <kernel/thread.h>
+
+int count;
+
+void *fn(void *arg)
+{
+	int i = (int) arg;
+
+	if (i != count)
+		TEST_EXIT(1);
+	count++;
+
+	return 0;
+}
+
+int main()
+{
+	struct thread_info *t;
+
+	for (int i = 0; i < 15; i++) {
+		t = thread_create(fn, (void *) i, THREAD_PRIV_USER, 256);
+		if (t == NULL) {
+			printk("failed: can't create new posix thread.\n");
+			TEST_EXIT(1);
+		}
+		thread_set_priority(t, i);
+		sched_add(t);
+	}
+
+	pthread_yield();
+
+	if (count != 15) {
+		printk("count != 15 (%d)\n", count);
+		TEST_EXIT(1);
+	}
+
+	TEST_EXIT(0);
+}
