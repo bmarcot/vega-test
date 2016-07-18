@@ -9,6 +9,7 @@ testsuite_v7m = [
     "thread_1",
     "thread_2",
     "thread_3",
+    "thread_4",
     "msleep_1",
     "mm_1",
     "mm_2",
