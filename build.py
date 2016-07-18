@@ -28,7 +28,8 @@ testsuite_v7m = [
     "malloc_1"
 ]
 
-testsuite_v6m = [
+testsuite_v6m = []
+'''
     "test_1",
     "thread_1",
     "thread_2",
@@ -44,7 +45,7 @@ testsuite_v6m = [
     "sprintf_1",
     "ucontext_1",
     "malloc_1"
-]
+'''
 
 def print_header(testname, arch):
     print("--------------------------------------------")
