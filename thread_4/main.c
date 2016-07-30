@@ -31,7 +31,7 @@ int main()
 			TEST_EXIT(1);
 		}
 		thread_set_priority(t, i);
-		sched_add(t);
+		sched_enqueue(t);
 	}
 
 	pthread_yield();
