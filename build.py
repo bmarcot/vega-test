@@ -27,7 +27,8 @@ testsuite_v7m = [
     "itoa_1",
     "sprintf_1",
     "ucontext_1",
-    "malloc_1"
+    "malloc_1",
+    "cond_1",
 ]
 
 testsuite_v6m = []
