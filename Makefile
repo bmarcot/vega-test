@@ -1,14 +1,14 @@
-CSRC = $(wildcard vega-test/$(TEST)/*.c)
-SSRC = $(wildcard vega-test/$(TEST)/*.S)
+CSRC = $(wildcard test/$(TEST)/*.c)
+SSRC = $(wildcard test/$(TEST)/*.S)
 
-TEST_OBJ = $(wildcard vega-test/$(TEST)/*.o)
-LIB_OBJ = $(wildcard vega-test/lib/*.o)
+TEST_OBJ = $(wildcard test/$(TEST)/*.o)
+LIB_OBJ = $(wildcard test/lib/*.o)
 
-CFLAGS = -Ivega-test/lib
+CFLAGS = -Itest/lib
 
 ifeq ($(SEMIHOSTING),1)
 CFLAGS += -DCONFIG_SEMIHOSTING
-SSRC += vega-test/lib/semih.S
+SSRC += test/lib/semih.S
 endif
 
 include Makefile

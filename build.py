@@ -58,7 +58,7 @@ def print_header(testname, arch):
 def run_test(testname, verbose, platform):
     # platform = os.getenv('PLATFORM', 'qemu')
     cmd = [ "make", "PLATFORM=%s" % platform, "TEST=%s" % testname, "SEMIHOSTING=1",
-            "--file", "vega-test/Makefile", "clean", "all", "run-with-semihosting" ]
+            "--file", "test/Makefile", "clean", "all", "run-with-semihosting" ]
     res = subprocess.run(cmd, universal_newlines=True, stdout=subprocess.PIPE,
                          stderr=subprocess.STDOUT)
     if (verbose == True):
