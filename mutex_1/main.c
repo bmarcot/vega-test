@@ -1,3 +1,5 @@
+#include <stddef.h>
+
 #include "kernel.h"
 #include "pthread.h"
 #include "unit.h"
