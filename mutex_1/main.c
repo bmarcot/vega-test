@@ -4,7 +4,9 @@
 
 int main(void)
 {
-	pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+	pthread_mutex_t lock;
+
+	pthread_mutex_init(&lock, NULL);
 
 	if (pthread_mutex_lock(&lock))
 		TEST_EXIT(1);
