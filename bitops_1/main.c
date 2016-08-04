@@ -21,5 +21,11 @@ int main()
 			TEST_EXIT(1);
 	}
 
+	u32 k[2] = { 0, 1 };
+	if (find_first_bit(k, 32) != 32UL)
+		TEST_EXIT(1);
+	if (find_first_bit(k, 64) != 63UL)
+		TEST_EXIT(1);
+
 	TEST_EXIT(0);
 }
