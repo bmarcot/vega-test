@@ -6,6 +6,7 @@ import os
 
 testsuite_v7m = [
     "test_1",
+    "bitops_1",
     "thread_1",
     "thread_2",
     "thread_3",
