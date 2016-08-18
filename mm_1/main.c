@@ -1,16 +1,19 @@
-#include <kernel/mm.h>
+#include <stddef.h>
+
+#include <kernel/page.h>
 #include "unit.h"
 
 int main()
 {
 	void *p, *q;
+	unsigned long order = size_to_page_order(256);
 
-	if ((p = page_alloc(256)) == NULL)
+	if ((p = alloc_pages(order)) == NULL)
 		TEST_EXIT(1);
-	page_free(p);
+	free_pages((unsigned long)p, order);
 
 	/* same page should be reallocated */
-	if ((q = page_alloc(256)) != p)
+	if ((q = alloc_pages(order)) != p)
 		TEST_EXIT(1);
 
 	TEST_EXIT(0);
