@@ -1,7 +1,8 @@
 #include <ucontext.h>
 
+#include <if/uart.h>
+
 #include "unit.h"
-#include "uart.h"
 
 static int test_status;
 static ucontext_t main_context, other_context;
