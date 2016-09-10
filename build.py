@@ -30,6 +30,9 @@ testsuite_v7m = [
     "ucontext_1",
     "malloc_1",
     "cond_1",
+    "fs_1",
+    "fs_2",
+    "fs_3",
 ]
 
 testsuite_v6m = []
