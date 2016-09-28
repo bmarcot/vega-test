@@ -6,6 +6,8 @@
 #include "kernel.h"
 #include "unit.h"
 
+#include "cmsis/arm/ARMCM4.h"
+
 int val;
 
 void sigact(int sig, siginfo_t *siginfo, void *unused)
@@ -29,11 +31,18 @@ int main(void *arg)
 
 	int retval;
 	const struct sigaction act = { .sa_sigaction = sigact, .sa_flags = SA_SIGINFO };
+	unsigned long sp = __get_PSP();
 
 	sigaction(SIGUSR1, &act, NULL);
 	retval = sigqueue(0, SIGUSR1, (union sigval){ .sival_int = 0xabadcafe });
-	if (retval)
+	if (retval) {
+		printk("error: %d: incorrect return value\n", retval);
 		TEST_EXIT(1);
+	}
+	if (sp != __get_PSP()) {
+		printk("error: stack not correctly restored\n");
+		TEST_EXIT(1);
+	}
 	if (!val)
 		TEST_EXIT(1);
 
