@@ -1,37 +1,31 @@
+/* simple create  multiple concurrent timers */
+
+#include <signal.h>
 #include <stddef.h>
 
-#include <kernel/thread.h>
-
 #include "kernel.h"
-#include "pthread.h"
 #include "unit.h"
 
-extern void msleep(unsigned int);
+int vals[] = { 0, 0, 0, 0 };
 
-int vals[] = {0, 0, 0, 0};
-
-void *fn(void *arg)
+static void event(union sigval sival)
 {
-	msleep(500 + (int) arg * 500);
-	vals[(int) arg]++;
-	printk("Thread_%d returns.\n", (int) arg);
-
-	return 0;
+	printk("In event %d.\n", sival.sival_int);
+	vals[sival.sival_int] = 1;
 }
 
 int main()
 {
-	pthread_t tips[4];
+	struct sigevent sevp = { .sigev_notify_function = event };
+	timer_t timerid[4];
 
-	for (int i = 0; i < 4; i++) {
-		if (pthread_create(&tips[i], NULL, fn, (void *) i)) {
-			printk("failed: can't create new posix thread.\n");
-			TEST_EXIT(1);
-		}
+	for (int i = 0; i < 4; i++)
+	{
+		printk("Creating timer %d...\n", i);
+		sevp.sigev_value.sival_int = i;
+		sys_timer_create(0, &sevp, &timerid[i]);
+		timer_settime(timerid[i], 0, 750 * (i + 1));
 	}
-
-	pthread_yield();
-
 	for (int i = 0; i < 4; i++) {
 		while (vals[i] == 0)
 			;
