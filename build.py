@@ -12,7 +12,7 @@ testsuite_v7m = [
     "thread_3",
     "thread_4",
     "thread_5",
-    "msleep_1",    
+    "msleep_1",
     "msleep_2",
     "mm_1",
     "mm_2",
@@ -33,6 +33,7 @@ testsuite_v7m = [
     "ucontext_1",
     "malloc_1",
     "cond_1",
+    "cond_2",
     "fs_1",
     "fs_2",
     "fs_3",
@@ -79,6 +80,7 @@ def run_test(testname, verbose, platform):
     return 0
 
 def main():
+    print('Staging %d tests: %s' % (len(testsuite_v7m), ', '.join(testsuite_v7m)))
     failed_count = 0
     t0 = datetime.now()
     for testcase in testsuite_v7m:
