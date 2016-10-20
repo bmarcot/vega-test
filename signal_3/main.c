@@ -1,6 +1,8 @@
 /* test signal error return code */
 
+#include <errno.h>
 #include <signal.h>
+#include <kernel/errno-base.h>
 #include <kernel/signal.h>
 #include "kernel.h"
 #include "unit.h"
@@ -16,15 +18,15 @@ int main(void *arg)
 
 	/* test ERR_SIGNAL_UNSUPPORTED */
 	retval = sigqueue(0, SIGMAX + 1, value);
-	if (retval != ERR_SIGNAL_UNSUPPORTED) {
-		printk("error: expected UNSUPPORTED_SIGNAL retcode\n");
+	if (retval != -1 || errno != EINVAL) {
+		printk("error: expected EINVAL\n");
 		TEST_EXIT(1);
 	}
 
 	/* test ERR_SIGNAL_UNHANDLED */
 	retval = sigqueue(0, SIGUSR1, value);
-	if (retval != ERR_SIGNAL_UNHANDLED) {
-		printk("error: expected UNHANDLED_SIGNAL retcode\n");
+	if (retval != -1 || errno != EINVAL) {
+		printk("error: expected EINVAL\n");
 		TEST_EXIT(1);
 	}
 
