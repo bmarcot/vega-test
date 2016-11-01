@@ -1,97 +1,139 @@
 #include "unit.h"
 #include "kernel.h"
 
-int dummy_0_arg();
-int dummy_1_arg();
-int dummy_2_args();
-int dummy_3_args();
-int dummy_4_args();
-
 int syscall_register(unsigned ix, void *(*fn)());
 
-void *sys_0_arg(void)
+int sysarg_ack[6];
+
+#define SYSARG_A0 0xbabe
+#define SYSARG_A1 0xbeef
+#define SYSARG_A2 0x123
+#define SYSARG_A3 0x456
+#define SYSARG_A4 0xcafe
+
+int sysarg0_handler(void)
 {
-	return (void *)0;
+	printk("    no arg\n");
+	sysarg_ack[0] = 1;
+
+	return 0;
 }
 
-void *sys_1_arg(int a)
+int sysarg1_handler(int a0)
 {
-	if (a != 0x101) {
-		printk("FAIL: kernel: in syscall with 1 arg\n");
-		TEST_EXIT(1);
-	}
+	printk("    arg0: %x\n", a0);
+	if (a0 != SYSARG_A0)
+		return -1;
+	sysarg_ack[1] = 1;
 
-	return (void *)111;
+	return 0;
 }
 
-void *sys_2_arg(int a, int b)
+int sysarg2_handler(int a0, int a1)
 {
-	if ((a != 0x101) || (b != 0x202)) {
-		printk("FAIL: kernel: in syscall with 2 args\n");
-		TEST_EXIT(1);
-	}
+	printk("    arg0: %x\n", a0);
+	printk("    arg1: %x\n", a1);
+	if (a0 != SYSARG_A0)
+		return -1;
+	if (a1 != SYSARG_A1)
+		return -1;
+	sysarg_ack[2] = 1;
 
-	return (void *)222;
+	return 0;
 }
 
-void *sys_3_arg(int a, int b, int c)
+int sysarg3_handler(int a0, int a1, int a2)
 {
-	if ((a != 0x101) || (b != 0x202) || (c != 0x303)) {
-		printk("FAIL: kernel: in syscall with 3 args\n");
-		TEST_EXIT(1);
-	}
+	printk("    arg0: %x\n", a0);
+	printk("    arg1: %x\n", a1);
+	printk("    arg2: %x\n", a2);
+	if (a0 != SYSARG_A0)
+		return -1;
+	if (a1 != SYSARG_A1)
+		return -1;
+	if (a2 != SYSARG_A2)
+		return -1;
+	sysarg_ack[3] = 1;
 
-	return (void *)333;
+	return 0;
 }
 
-void *sys_4_arg(int a, int b, int c, int d)
+int sysarg4_handler(int a0, int a1, int a2, int a3)
 {
-	if ((a != 0x101) || (b != 0x202) || (c != 0x303) || (d != 0x404)) {
-		printk("FAIL: kernel: in syscall with 4 args\n");
-		TEST_EXIT(1);
-	}
+	printk("    arg0: %x\n", a0);
+	printk("    arg1: %x\n", a1);
+	printk("    arg2: %x\n", a2);
+	printk("    arg3: %x\n", a3);
+	if (a0 != SYSARG_A0)
+		return -1;
+	if (a1 != SYSARG_A1)
+		return -1;
+	if (a2 != SYSARG_A2)
+		return -1;
+	if (a3 != SYSARG_A3)
+		return -1;
+	sysarg_ack[4] = 1;
 
-	return (void *)444;
+	return 0;
 }
+
+int sysarg5_handler(int a0, int a1, int a2, int a3, int a4)
+{
+	printk("    arg0: %x\n", a0);
+	printk("    arg1: %x\n", a1);
+	printk("    arg2: %x\n", a2);
+	printk("    arg3: %x\n", a3);
+	printk("    arg4: %x\n", a4);
+	if (a0 != SYSARG_A0)
+		return -1;
+	if (a1 != SYSARG_A1)
+		return -1;
+	if (a2 != SYSARG_A2)
+		return -1;
+	if (a3 != SYSARG_A3)
+		return -1;
+	if (a4 != SYSARG_A4)
+		return -1;
+	sysarg_ack[5] = 1;
+
+	return 0;
+}
+
+void test_svcall0();
+void test_svcall1();
+void test_svcall2();
+void test_svcall3();
+void test_svcall4();
+void test_svcall5();
 
 int main(void *arg)
 {
 	(void) arg;
 
-	syscall_register(4, sys_0_arg);
-	syscall_register(5, sys_1_arg);
-	syscall_register(6, sys_2_arg);
-	syscall_register(7, sys_3_arg);
-	syscall_register(8, sys_4_arg);
+	void (*test_svcall[])() = {
+		test_svcall0,
+		test_svcall1,
+		test_svcall2,
+		test_svcall3,
+		test_svcall4,
+		test_svcall5,
+	};
 
-	printk("testing syscall with %d arg(s)...\n", 0);
-	if (dummy_0_arg(0) != 0) {
-		printk("FAIL: in syscall with 0 arg\n");
-		TEST_EXIT(1);
-	}
+	syscall_register(42, sysarg0_handler);
+	syscall_register(43, sysarg1_handler);
+	syscall_register(44, sysarg2_handler);
+	syscall_register(45, sysarg3_handler);
+	syscall_register(46, sysarg4_handler);
+	syscall_register(47, sysarg5_handler);
 
-	printk("testing syscall with %d arg(s)...\n", 1);
-	if (dummy_1_arg(0x0101) != 111) {
-		printk("FAIL: in syscall with 1 arg\n");
-		TEST_EXIT(1);
-	}
-
-	printk("testing syscall with %d arg(s)...\n", 2);
-	if (dummy_2_args(0x0101, 0x0202) != 222) {
-		printk("FAIL: in syscall with 2 args\n");
-		TEST_EXIT(1);
-	}
-
-	printk("testing syscall with %d arg(s)...\n", 3);
-	if (dummy_3_args(0x0101, 0x0202, 0x0303) != 333) {
-		printk("FAIL: in syscall with 3 args\n");
-		TEST_EXIT(1);
-	}
-
-	printk("testing syscall with %d arg(s)...\n", 4);
-	if (dummy_4_args(0x0101, 0x0202, 0x0303, 0x0404) != 444) {
-		printk("FAIL: in syscall with 4 args\n");
-		TEST_EXIT(1);
+	for (int i = 0; i <= 5; i++) {
+		printk("Test syscall with %d arg(s).\n", i);
+		//XXX: check SP before and after. also in syscall handler, in trampoline.
+		test_svcall[i]();
+		if (!sysarg_ack[i]) {
+			printk("error: syscall was not acknowledged\n");
+			TEST_EXIT(1);
+		}
 	}
 
 	TEST_EXIT(0);
