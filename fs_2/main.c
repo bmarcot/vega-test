@@ -11,8 +11,6 @@ char buf[128];
 
 int main()
 {
-	fs_init();
-
 	int fd = open("/dev/zero", 0);
 	if (fd < 0) {
 		printk("error: failed to open /dev/zero\n");

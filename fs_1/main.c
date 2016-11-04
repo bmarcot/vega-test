@@ -9,8 +9,6 @@ int main()
 {
 	unsigned int n, p;
 
-	fs_init();
-
 	int fd = open("/dev/random", 0);
 	if (fd < 0) {
 		printk("error: failed to open /dev/random\n");

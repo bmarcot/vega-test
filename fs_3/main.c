@@ -16,7 +16,6 @@ int main()
 	int fd;
 	char buffer[128];
 
-	fs_init();
 	romfs_init();
 	mount("/dev/sda1", "home", "romfs", 0, &_binary_sda1_start);
 
