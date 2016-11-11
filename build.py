@@ -38,6 +38,7 @@ testsuite_v7m = [
     "fs_1",
     "fs_2",
     "fs_3",
+    "mtdram_1",
 ]
 
 testsuite_v6m = []
