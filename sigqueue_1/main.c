@@ -10,6 +10,15 @@
 
 int val;
 
+void handler(int sig)
+{
+	printk("In signal handler, received signal %d\n", sig);
+
+	if (sig != SIGUSR2)
+		TEST_EXIT(1);
+	val = 1;
+}
+
 void sigact(int sig, siginfo_t *siginfo, void *unused)
 {
 	(void)unused;
@@ -30,9 +39,10 @@ int main(void *arg)
 	(void) arg;
 
 	int retval;
-	const struct sigaction act = { .sa_sigaction = sigact, .sa_flags = SA_SIGINFO };
 	unsigned long sp = __get_PSP();
 
+	/* test handler with SA_SIGINFO attached */
+	const struct sigaction act = { .sa_sigaction = sigact, .sa_flags = SA_SIGINFO };
 	sigaction(SIGUSR1, &act, NULL);
 	retval = sigqueue(0, SIGUSR1, (union sigval){ .sival_int = 0xabadcafe });
 	if (retval) {
@@ -43,6 +53,15 @@ int main(void *arg)
 		printk("error: stack not correctly restored\n");
 		TEST_EXIT(1);
 	}
+	if (!val)
+		TEST_EXIT(1);
+
+	/* test simple handler */
+	val = 0; /* reset marker */
+	const struct sigaction _act = { .sa_handler = handler, .sa_flags = 0 };
+	sigaction(SIGUSR2, &_act, NULL);
+	if (raise(SIGUSR2))
+		TEST_EXIT(1);
 	if (!val)
 		TEST_EXIT(1);
 
