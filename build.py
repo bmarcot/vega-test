@@ -25,7 +25,7 @@ testsuite_v7m = [
     "mutex_4",
     "mutex_5",
     "syscall_1",
-    "signal_1",
+    "raise_1",
     "signal_2",
     "signal_3",
     "sysconf_1",
