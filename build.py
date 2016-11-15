@@ -27,6 +27,7 @@ testsuite_v7m = [
     "syscall_1",
     "raise_1",
     "raise_2",
+    "raise_3",
     "signal_2",
     "signal_3",
     "sysconf_1",
