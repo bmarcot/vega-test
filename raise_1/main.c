@@ -24,7 +24,8 @@ int main(void *arg)
 	const struct sigaction act = { .sa_handler = handler, .sa_flags = 0 };
 
 	sigaction(signo, &act, NULL);
-	raise(signo);
+	if (raise(signo))
+		TEST_EXIT(1);
 	if (!val)
 		TEST_EXIT(1);
 
