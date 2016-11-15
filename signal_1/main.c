@@ -6,11 +6,14 @@
 #include "unit.h"
 
 int val;
+int signo = SIGUSR1;
 
 void handler(int n)
 {
 	printk("In signal handler, received signal %d\n", n);
 
+	if (n != signo)
+		TEST_EXIT(1);
 	val = 1;
 }
 
@@ -20,9 +23,8 @@ int main(void *arg)
 
 	const struct sigaction act = { .sa_handler = handler, .sa_flags = 0 };
 
-	sigaction(SIGUSR1, &act, NULL);
-	raise(SIGUSR1);
-
+	sigaction(signo, &act, NULL);
+	raise(signo);
 	if (!val)
 		TEST_EXIT(1);
 
