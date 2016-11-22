@@ -23,8 +23,8 @@ int main()
 	{
 		printk("Creating timer %d...\n", i);
 		sevp.sigev_value.sival_int = i;
-		sys_timer_create(0, &sevp, &timerid[i]);
-		timer_settime(timerid[i], 0, 750 * (i + 1));
+		timer_create(0, &sevp, &timerid[i]);
+		timer_settime(timerid[i], 0, 750 * (i + 1) * 1000);
 	}
 	for (int i = 0; i < 4; i++) {
 		while (vals[i] == 0)
