@@ -2,6 +2,7 @@
 
 #include <signal.h>
 #include <stddef.h>
+#include <time.h>
 
 #include "kernel.h"
 #include "unit.h"
@@ -24,8 +25,14 @@ int main()
 		printk("Creating timer %d...\n", i);
 		sevp.sigev_value.sival_int = i;
 		timer_create(0, &sevp, &timerid[i]);
-		timer_settime(timerid[i], 0, 750 * (i + 1) * 1000);
+
+		unsigned long val_in_nsecs = 750 * (i + 1) * 1000000;
+		struct itimerspec val = {
+			.it_value = { .tv_sec = val_in_nsecs / 1000000000,
+				      .tv_nsec = val_in_nsecs % 1000000000 } };
+		timer_settime(timerid[i], 0, &val, NULL);
 	}
+	printk("All timers armed.\n");
 	for (int i = 0; i < 4; i++) {
 		while (vals[i] == 0)
 			;
