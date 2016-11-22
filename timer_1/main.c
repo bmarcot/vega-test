@@ -22,8 +22,8 @@ int main()
 				 .sigev_value.sival_int = EXPECTED_VALUE };
 	timer_t timerid;
 
-	sys_timer_create(1, &sevp, &timerid);
-	timer_settime(timerid, 0, 1000);
+	timer_create(1, &sevp, &timerid);
+	timer_settime(timerid, 0, 1000 * 1000);
 
 	while (!received_signal)
 		;
