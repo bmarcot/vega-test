@@ -1,3 +1,6 @@
+#include <stddef.h>
+#include <time.h>
+
 #include "unit.h"
 #include <kernel/time.h>
 #include <kernel/signal.h>
@@ -20,10 +23,11 @@ int main()
 {
 	struct sigevent sevp = { .sigev_notify_function = event,
 				 .sigev_value.sival_int = EXPECTED_VALUE };
+	struct itimerspec val = { .it_value = { .tv_sec = 1, .tv_nsec = 0 } };
 	timer_t timerid;
 
 	timer_create(1, &sevp, &timerid);
-	timer_settime(timerid, 0, 1000 * 1000);
+	timer_settime(timerid, 0, &val, NULL);
 
 	while (!received_signal)
 		;
