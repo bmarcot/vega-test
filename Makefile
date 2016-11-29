@@ -6,10 +6,6 @@ LIB_OBJ = $(wildcard test/lib/*.o)
 
 CFLAGS = -Itest/lib
 
-ifeq ($(SEMIHOSTING),1)
-CFLAGS += -DCONFIG_SEMIHOSTING
-endif
-
 # Build a romFS drive if there is a /home directory at the root
 # of the testcase directory.
 ifneq ("$(wildcard test/$(TEST)/home)","")
