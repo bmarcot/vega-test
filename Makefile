@@ -8,7 +8,6 @@ CFLAGS = -Itest/lib
 
 ifeq ($(SEMIHOSTING),1)
 CFLAGS += -DCONFIG_SEMIHOSTING
-SSRC += test/lib/semih.S
 endif
 
 # Build a romFS drive if there is a /home directory at the root
