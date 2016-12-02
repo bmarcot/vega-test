@@ -13,16 +13,16 @@
 #define printk_red(format, ...)				\
 	printk(C_RED format C_NORMAL, ##__VA_ARGS__);
 
-void semih_exit(int);
+#include <arch/semihosting.h>
 
-#define TEST_EXIT(ret_val) ({			\
-	if (ret_val) {				\
-		printk_red("test failed: %d", (ret_val)); \
+#define TEST_EXIT(status) ({			\
+	if (status) {				\
+		printk_red("test failed: %d", (status)); \
 		printk("\n");			\
 	} else {				\
 		printk_green("test passed");	\
 		printk("\n");			\
 	}					\
-	semih_exit(ret_val); })
+	v7m_semih_exit(status); })
 
 #endif /* !TEST_LIB_UNIT_H */
