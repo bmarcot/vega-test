@@ -6,7 +6,7 @@
 #include <kernel/signal.h>
 #include "kernel.h"
 #include "unit.h"
-#include "cmsis/arm/ARMCM4.h"
+#include "platform.h"
 
 int main(void *arg)
 {
