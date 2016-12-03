@@ -7,7 +7,7 @@
 
 #include <kernel/fs/fs.h>
 
-#include "cmsis/arm/ARMCM4.h"
+#include "platform.h"
 
 extern char _binary_sda1_start;
 
