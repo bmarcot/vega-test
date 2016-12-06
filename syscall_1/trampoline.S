@@ -1,8 +1,7 @@
+#include <kernel/linkage.h>
 
 	.syntax unified
 	.thumb
-
-#include "linux/linkage.h"
 
 ENTRY(test_svcall0)
 	ldr	r0, =42
