@@ -1,9 +1,9 @@
 /* test /dev/random */
 
-#include "kernel.h"
-#include "unit.h"
+#include <kernel/fs.h>
+#include <kernel/kernel.h>
 
-#include <kernel/fs/fs.h>
+#include "unit.h"
 
 int main()
 {
