@@ -5,7 +5,7 @@
 
 #include <string.h>
 
-#include <kernel/fs/fs.h>
+#include <kernel/fs.h>
 
 char buf[128];
 
