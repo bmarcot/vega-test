@@ -39,7 +39,7 @@ testsuite_v7m = [
     "cond_2",
     "fs_1",
     "fs_2",
-    "fs_3",
+    # "fs_3",
     "mtdram_1",
 ]
 
