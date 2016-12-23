@@ -1,18 +1,18 @@
 /* test simple romFS */
 
-#include "kernel.h"
 #include "unit.h"
 
 #include <string.h>
+#include <unistd.h>
 
-#include <kernel/fs/fs.h>
+#include <kernel/fs.h>
+#include <kernel/kernel.h>
 
 int main()
 {
 	char str[] = "Hello World!";
 	char buf[32];
-	size_t len = strlen(str);
-	size_t retlen;
+	ssize_t len = strlen(str);
 	int fd;
 
 	printk("Opening /dev/mtd0...\n");
