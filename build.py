@@ -19,6 +19,7 @@ testsuite_v7m = [
     "mm_2",
     "timer_1",
     "timer_2",
+    "timer_3",
     "mutex_1",
     "mutex_2",
     "mutex_3",
