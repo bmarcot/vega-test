@@ -95,16 +95,23 @@ def main():
     print_qemu_version()
     print('Staging %d tests: %s' % (len(testsuite_v7m), ', '.join(testsuite_v7m)))
     failed_count = 0
+    results = dict()
     t0 = datetime.now()
     for testcase in testsuite_v7m:
         print_header(testcase, 'v7m')
-        failed_count += run_test(testcase, True, 'qemu')
-    for testcase in testsuite_v6m:
-        print_header(testcase, 'v6m')
-        failed_count += run_test(testcase, True, 'microbit')
+        status = run_test(testcase, True, 'qemu')
+        failed_count += status
+        if status:
+            results[testcase] = 'failed'
+        else:
+            results[testcase] = 'ok'
     t =  datetime.now()
-    print("Ran %d tests in %d.%ds" % (len(testsuite_v7m) + len(testsuite_v6m),
-                                      (t - t0).seconds, (t - t0).microseconds / 1000))
+
+    for k, v in results.items():
+        print("% 16s:  %s" % (k, v))
+    print("\nRan %d tests in %d.%ds" % (len(testsuite_v7m) + len(testsuite_v6m),
+                                        (t - t0).seconds, (t - t0).microseconds / 1000))
+
     if (failed_count):
         exit(1)
 
