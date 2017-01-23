@@ -46,25 +46,6 @@ testsuite_v7m = [
     "readdir_1",
 ]
 
-testsuite_v6m = []
-'''
-    "test_1",
-    "thread_1",
-    "thread_2",
-    "thread_3",
-    "msleep_1",
-    "mm_1",
-    "mm_2",
-    "timer_1",
-    "timer_2",
-    "syscall_1",
-    "sysconf_1",
-    "itoa_1",
-    "sprintf_1",
-    "ucontext_1",
-    "malloc_1"
-'''
-
 def print_qemu_version():
     cmd = [ "qemu-system-arm", "--version" ]
     res = subprocess.run(cmd, universal_newlines=True, stdout=subprocess.PIPE,
@@ -108,9 +89,10 @@ def main():
             results[testcase] = 'ok'
     t =  datetime.now()
 
-    for k, v in results.items():
-        print("% 16s:  %s" % (k, v))
-    print("\nRan %d tests in %d.%ds" % (len(testsuite_v7m) + len(testsuite_v6m),
+    for key in sorted(results.keys()):
+        print("% 16s:  %s" % (key, results[key]))
+
+    print("\nRan %d tests in %d.%ds" % (len(testsuite_v7m),
                                         (t - t0).seconds, (t - t0).microseconds / 1000))
 
     if (failed_count):
