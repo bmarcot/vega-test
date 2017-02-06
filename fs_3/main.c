@@ -38,7 +38,7 @@ int main()
 
 	init_tmpfs_inode(&inode);
 	flash_init();
-	romfs_mount("/dev/mtd1", "/dev/flash", "romfs", 0, &mtd1);
+	mount("/dev/mtd1", "/dev/flash", "romfs", 0, 0);
 
 	/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. */
 	fd = open("/dev/flash/lorem.txt", 0);
