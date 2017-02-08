@@ -20,15 +20,13 @@ static void event(union sigval sival)
 int main()
 {
 	timer_t timerid;
-	struct sigevent sevp = {
-		.sigev_notify_function = event,
-	};
+	struct sigevent sevp = { .sigev_notify_function = event, };
 	struct itimerspec val = {
-		.it_value = { 0, 0 },
+		.it_value    = { .tv_sec = 1, .tv_nsec = 0 },
 		.it_interval = { .tv_sec = 1, .tv_nsec = 0 },
 	};
 
-	timer_create(1, &sevp, &timerid);
+	timer_create(0, &sevp, &timerid);
 	timer_settime(timerid, 0, &val, NULL);
 	while (count < 4)
 		;
