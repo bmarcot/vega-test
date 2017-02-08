@@ -68,6 +68,10 @@ struct ytk_pixbuf {
 	void           *mem_alias;
 };
 
+
+char aurora_g2_27_buf[264 * 176 / 8];
+char aa[33 * 176];
+
 int draw_pbm_image(struct ytk_pixbuf *pixbuf, const char *filename,
 		int x, int y, int transparency)
 {
@@ -91,9 +95,19 @@ int draw_pbm_image(struct ytk_pixbuf *pixbuf, const char *filename,
 
 	for (int j = 0; j < image_height; j++) {
 		// 8-bit aligned
-		char *pos = (char *)pixbuf->mem + (((y + j) * pixbuf->width / 8) + x / 8);
-		if (!transparency)
-			read(fd, pos, image_width / 8);
+		/* char *pos = (char *)pixbuf->mem + (((y + j) * pixbuf->width / 8) + x / 8); */
+		/* if (!transparency) */
+		/* 	read(fd, pos, image_width / 8); */
+
+		read(fd, &aurora_g2_27_buf[j * 33], 33);
+		for (int i = 0; i < 33; i++)
+			aurora_g2_27_buf[j * 33 + i] = ~aurora_g2_27_buf[j * 33 + i];
+		//read(fd, &aa[i * 33], 33);
+		/* for (int i = 0; i < 33; i++) { */
+		/* 	//printk("%02x", aurora_g2_27_buf[i + j*176/8]); */
+		/* 	printk("%02x", aa[i * 33]); */
+		/* } */
+		/* printk("\n"); */
 	}
 
 	close(fd);
@@ -107,13 +121,13 @@ int draw_trapezoid(struct ytk_pixbuf *pixbuf, const char *filename,
 	return 0;
 }
 
-int aurora_g2_27_buf[2048];
-
 struct ytk_pixbuf aurora_g2_27 = {
 	.width  = 264,
 	.height = 176,
 	.mem    = aurora_g2_27_buf,
 };
+
+#include "conf_EPD.h"
 
 int main()
 {
@@ -128,6 +142,11 @@ int main()
 	mount("/dev/mtd1", "/dev/flash", "romfs", 0, 0);
 
 	draw_pbm_image(&aurora_g2_27, "/dev/flash/viewport_264.pbm", 0, 0, 0);
+	EPD_display_hardware_init();
+	/* EPD_display_from_pointer(EPD_270, (uint8_t *)aa, */
+	/* 			(uint8_t *)aa); */
+	EPD_display_from_pointer(EPD_270, (uint8_t *)&aurora_g2_27_buf,
+				(uint8_t *)&aurora_g2_27_buf);
 
 	TEST_EXIT(0);
 }
