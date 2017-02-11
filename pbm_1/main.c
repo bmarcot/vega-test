@@ -89,19 +89,21 @@ int draw_pbm_image(struct ytk_pixbuf *pixbuf, const char *filename,
 		return -1;
 	}
 
+	
 	int image_width = readnum(fd);
 	int image_height = readnum(fd);
-	printk("with=%d height=%d\n", image_width, image_height);
+	printk("with=%d height=%d (%d)\n", image_width, image_height, image_width / 8);
 
-	for (int j = 0; j < image_height; j++) {
+	int byte_width = align_next(image_width, 8) / 8 ;
+	for (int j = y; j < image_height + y; j++) {
 		// 8-bit aligned
 		/* char *pos = (char *)pixbuf->mem + (((y + j) * pixbuf->width / 8) + x / 8); */
 		/* if (!transparency) */
 		/* 	read(fd, pos, image_width / 8); */
 
-		read(fd, &aurora_g2_27_buf[j * 33], 33);
-		for (int i = 0; i < 33; i++)
-			aurora_g2_27_buf[j * 33 + i] = ~aurora_g2_27_buf[j * 33 + i];
+		read(fd, &aurora_g2_27_buf[j * 33 + x / 8], byte_width);
+		/* for (int i = 0; i < image_width / 8; i++) */
+		/* 	aurora_g2_27_buf[j * image_width / 8 + i] = ~aurora_g2_27_buf[j * image_width / 8 + i]; */
 		//read(fd, &aa[i * 33], 33);
 		/* for (int i = 0; i < 33; i++) { */
 		/* 	//printk("%02x", aurora_g2_27_buf[i + j*176/8]); */
@@ -141,7 +143,12 @@ int main()
 	flash_init();
 	mount("/dev/mtd1", "/dev/flash", "romfs", 0, 0);
 
-	draw_pbm_image(&aurora_g2_27, "/dev/flash/viewport_264.pbm", 0, 0, 0);
+	memset(aurora_g2_27_buf, 0xff, 264 * 176 / 8);
+//	draw_pbm_image(&aurora_g2_27, "/dev/flash/viewport_264.pbm", 0, 0, 0);
+	draw_pbm_image(&aurora_g2_27, "/dev/flash/hourtime.pbm", 16, 16, 0);
+	draw_pbm_image(&aurora_g2_27, "/dev/flash/power5s.pbm", 16, 64, 0);
+	draw_pbm_image(&aurora_g2_27, "/dev/flash/697w.pbm", 16, 96, 0);
+	
 	EPD_display_hardware_init();
 	/* EPD_display_from_pointer(EPD_270, (uint8_t *)aa, */
 	/* 			(uint8_t *)aa); */
