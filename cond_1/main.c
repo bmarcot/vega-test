@@ -13,6 +13,8 @@ pthread_mutex_t     mutex;
 
 void *threadfunc(void *parm)
 {
+	(void)parm;
+
 	pthread_mutex_lock(&mutex);
 
 	printk("Wait for signal\n");
@@ -27,7 +29,6 @@ void *threadfunc(void *parm)
 int main()
 {
 	int rc=0;
-	int i;
 	pthread_t threadid;
 
 	printk("Enter Testcase\n");
