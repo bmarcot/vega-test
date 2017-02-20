@@ -40,6 +40,7 @@ testsuite_v7m = [
     "malloc_1",
     "cond_1",
     "cond_2",
+    "cond_3",
     "fs_1",
     "fs_2",
     "fs_3",
