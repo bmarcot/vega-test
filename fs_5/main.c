@@ -1,5 +1,8 @@
 /* test multiple opening/closing /dev/random */
 
+#include <fcntl.h>
+#include <unistd.h>
+
 #include <kernel/fs.h>
 #include <kernel/kernel.h>
 
