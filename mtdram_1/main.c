@@ -20,7 +20,7 @@ int main()
 	fd = open("/dev/mtd0", 0);
 	if (write(fd, str, len) != len)
 		TEST_EXIT(1);
-	seek(fd, 0, SEEK_SET);
+	lseek(fd, 0, SEEK_SET);
 	if (read(fd, buf, len) != len)
 		TEST_EXIT(1);
 	printk("Read /dev/mtd0: %s\n", buf);
