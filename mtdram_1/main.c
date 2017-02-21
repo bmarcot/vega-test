@@ -1,12 +1,13 @@
 /* test simple romFS */
 
-#include "unit.h"
-
+#include <fcntl.h>
 #include <string.h>
 #include <unistd.h>
 
 #include <kernel/fs.h>
 #include <kernel/kernel.h>
+
+#include "unit.h"
 
 int main()
 {
