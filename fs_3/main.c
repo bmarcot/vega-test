@@ -1,6 +1,8 @@
 /* test simple romFS */
 
+#include <fcntl.h>
 #include <string.h>
+#include <unistd.h>
 
 #include <kernel/fs.h>
 #include <kernel/kernel.h>
@@ -66,7 +68,7 @@ int main()
 		TEST_EXIT(1);
 
 	/* rewind the file */
-	seek(fd, 0, SEEK_SET);
+	lseek(fd, 0, SEEK_SET);
 	memset(buffer, 0, 128);
 	read(fd, buffer, 11);
 	printk("read(): %s\n", buffer);
