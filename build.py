@@ -58,7 +58,7 @@ def print_qemu_version():
 
 def print_header(testname, arch):
     print("--------------------------------------------")
-    print("running test:  \033[1;37m%s\033[39;49m" % testname)
+    print("running test:  \033[1;37m%s\033[0m" % testname)
     print("arch        :  %s" % arch)
     print("time        :  %s\n" % strftime("%c"))
 
