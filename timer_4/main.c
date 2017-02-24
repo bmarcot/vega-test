@@ -8,7 +8,7 @@
 
 #include "unit.h"
 
-int count;
+static volatile int count;
 
 static void event(union sigval sival)
 {

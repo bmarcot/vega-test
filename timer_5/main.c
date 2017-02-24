@@ -8,8 +8,8 @@
 
 #include "unit.h"
 
-int canary;
-int count;
+static volatile int canary;
+static volatile int count;
 
 static void event_should_not_happen(union sigval sival)
 {

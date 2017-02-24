@@ -7,7 +7,7 @@
 #include "kernel.h"
 #include "unit.h"
 
-int vals[] = { 0, 0, 0, 0 };
+static volatile int vals[] = { 0, 0, 0, 0 };
 
 static void event(union sigval sival)
 {

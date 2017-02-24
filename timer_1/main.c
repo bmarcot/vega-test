@@ -7,7 +7,7 @@
 
 #define EXPECTED_VALUE  0xabadcafeul
 
-int received_signal;
+static volatile int received_signal;
 
 static void event(union sigval sival)
 {
