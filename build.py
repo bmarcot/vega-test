@@ -48,6 +48,7 @@ testsuite_v7m = [
     "fs_5",
     "mtdram_1",
     "readdir_1",
+    "stat_1",
 ]
 
 def print_qemu_version():
