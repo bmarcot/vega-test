@@ -61,16 +61,34 @@ int readnum(int fd)
 }
 
 // yellow toolkit
+
+// struct ytk_framebuffer
 struct ytk_pixbuf {
-	unsigned short width;
 	unsigned short height;
+	unsigned short width;
 	void           *mem;
-	void           *mem_alias;
 };
 
+struct ytk_image {
+	unsigned short height;
+	unsigned short width;
+	unsigned short anchor_top;
+	unsigned short anchor_left;
+	int fd;
+};
+
+/* http://netpbm.sourceforge.net/doc/pbm.html */
+struct ytk_image yetk_netpbm_open(const char *path, struct ytk_image *image)
+{
+	if (image == NULL) {
+		image = malloc(sizeof(struct ytk_image));
+		if (image == NULL)
+			return NULL;
+	}
+}
 
 char aurora_g2_27_buf[264 * 176 / 8];
-char aa[33 * 176];
+/* char aa[33 * 176]; */
 
 int draw_pbm_image(struct ytk_pixbuf *pixbuf, const char *filename,
 		int x, int y, int transparency)
@@ -89,7 +107,6 @@ int draw_pbm_image(struct ytk_pixbuf *pixbuf, const char *filename,
 		return -1;
 	}
 
-	
 	int image_width = readnum(fd);
 	int image_height = readnum(fd);
 	printk("with=%d height=%d (%d)\n", image_width, image_height, image_width / 8);
@@ -110,6 +127,44 @@ int draw_pbm_image(struct ytk_pixbuf *pixbuf, const char *filename,
 		/* 	printk("%02x", aa[i * 33]); */
 		/* } */
 		/* printk("\n"); */
+	}
+
+	close(fd);
+
+	return 0;
+}
+
+int draw_pbm_image_unaligned(struct ytk_pixbuf *pixbuf, const char *filename,
+			int x, int y, int transparency)
+{
+	int fd = open(filename, 0);
+	if (fd < 0) {
+		printk("error: failed to open %s\n");
+		TEST_EXIT(1);
+	}
+
+	char magic_number[3];
+	if (read(fd, magic_number, 3) != 3)
+		return -1;
+	if (strcmp("P4\n", magic_number)) {
+		printk("error: unrecognized filetype\n");
+		return -1;
+	}
+
+	int image_width = readnum(fd);
+	int image_height = readnum(fd);
+	printk("with=%d height=%d (%d)\n", image_width, image_height, image_width / 8);
+
+	int byte_width = align_next(image_width, 8) / 8 ;
+	char buf[400/8];
+	int *intptr = (char *)aurora_g2_27_buf + 0x2000000;
+	for (int j = y; j < image_height + y; j++) {
+		read(fd, buf, image_width / 8);
+		for (int i = 0; i < image_width / 8; i++) {
+			for (int k = 0; (k < 8) && (k + i * 8 < image_width); k++) {
+				intptr[k + i * 8] = (buf[i] >> k) & 1;
+			}
+		}
 	}
 
 	close(fd);
@@ -144,14 +199,15 @@ int main()
 	mount("/dev/mtd1", "/dev/flash", "romfs", 0, 0);
 
 	memset(aurora_g2_27_buf, 0xff, 264 * 176 / 8);
-//	draw_pbm_image(&aurora_g2_27, "/dev/flash/viewport_264.pbm", 0, 0, 0);
+	/* draw_pbm_image(&aurora_g2_27, "/dev/flash/viewport_264.pbm", 0, 0, 0); */
 	draw_pbm_image(&aurora_g2_27, "/dev/flash/hourtime.pbm", 16, 16, 0);
 	draw_pbm_image(&aurora_g2_27, "/dev/flash/power5s.pbm", 16, 64, 0);
 	draw_pbm_image(&aurora_g2_27, "/dev/flash/697w.pbm", 16, 96, 0);
-	
+	draw_pbm_image(&aurora_g2_27, "/dev/flash/numbers.pbm", 8, 128, 0);
+	draw_pbm_image(&aurora_g2_27, "/dev/flash/cadence.pbm", 128, 64, 0);
+	draw_pbm_image(&aurora_g2_27, "/dev/flash/cadence_s.pbm", 128, 48, 0);
+
 	EPD_display_hardware_init();
-	/* EPD_display_from_pointer(EPD_270, (uint8_t *)aa, */
-	/* 			(uint8_t *)aa); */
 	EPD_display_from_pointer(EPD_270, (uint8_t *)&aurora_g2_27_buf,
 				(uint8_t *)&aurora_g2_27_buf);
 
