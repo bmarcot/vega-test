@@ -24,7 +24,7 @@ include Makefile
 
 %sda1.o: %sda1
 	$(VECHO) "BUILDFS\t$@"
-	$(Q)$(OCPY) -I binary -O elf32-littlearm -B arm			\
+	$(Q)$(OBJCOPY) -I binary -O elf32-littlearm -B arm		\
 	--rename-section .data=.rodata					\
         --redefine-sym _binary_$(subst /,_,$<)_start=_binary_sda1_start	\
         --redefine-sym _binary_$(subst /,_,$<)_end=_binary_sda1_end	\
