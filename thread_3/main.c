@@ -1,10 +1,10 @@
-#include "linux/stddef.h"
-#include "kernel.h"
-#include "pthread.h"
-#include "unit.h"
-#include "sys/resource.h"
+#include <pthread.h>
 
-int count;
+#include <kernel/kernel.h>
+
+#include "unit.h"
+
+static int count;
 
 void *fn(void *arg)
 {
@@ -32,7 +32,7 @@ int main()
 	}
 
 	while (count < 24)
-		pthread_yield();
+		sched_yield();
 
 	TEST_EXIT(0);
 }
