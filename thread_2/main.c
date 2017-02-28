@@ -1,7 +1,8 @@
-#include "kernel.h"
-#include "pthread.h"
+#include <pthread.h>
+
+#include <kernel/kernel.h>
+
 #include "unit.h"
-#include "linux/stddef.h"
 
 int vals[] = {0, 0, 0, 0};
 
@@ -9,7 +10,7 @@ void *fn(void *arg)
 {
 	for (;;) {
 		vals[(int) arg]++;
-		pthread_yield();
+		sched_yield();
 	}
 
 	return 0;
@@ -28,7 +29,7 @@ int main()
 
 	for (int i = 0; i < 4; i++) {
 		while (vals[i] < 10)
-			pthread_yield();
+			sched_yield();
 	}
 
 	TEST_EXIT(0);
