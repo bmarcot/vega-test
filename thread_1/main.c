@@ -1,9 +1,10 @@
-// simple thread create and thread yield
+/* simple thread create and thread yield */
 
-#include "kernel.h"
-#include "pthread.h"
+#include <pthread.h>
+
+#include <kernel/kernel.h>
+
 #include "unit.h"
-#include "linux/stddef.h"
 
 static int val = 123;
 
@@ -23,7 +24,7 @@ int main()
 		TEST_EXIT(1);
 	}
 
-	if (pthread_yield()) {
+	if (sched_yield()) {
 		printk("failed: can't yield cpu to another thread.\n");
 		TEST_EXIT(1);
 	}
