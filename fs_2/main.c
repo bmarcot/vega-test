@@ -1,11 +1,12 @@
 /* test /dev/zero */
 
-#include "kernel.h"
-#include "unit.h"
-
+#include <fcntl.h>
 #include <string.h>
 
 #include <kernel/fs.h>
+#include <kernel/kernel.h>
+
+#include "unit.h"
 
 char buf[128];
 
