@@ -1,5 +1,7 @@
 /* test /dev/random */
 
+#include <fcntl.h>
+
 #include <kernel/fs.h>
 #include <kernel/kernel.h>
 
@@ -7,7 +9,7 @@
 
 int main()
 {
-	unsigned int n, p;
+	unsigned int n, p = 0;
 
 	int fd = open("/dev/random", 0);
 	if (fd < 0) {
