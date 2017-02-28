@@ -1,15 +1,14 @@
-#include "linux/stddef.h"
-#include "kernel.h"
-#include "pthread.h"
-#include "unit.h"
-#include "sys/resource.h"
+#include <pthread.h>
 
+#include <kernel/kernel.h>
 #include <kernel/scheduler.h>
 #include <kernel/thread.h>
 
-int count;
+#include "unit.h"
 
-void *fn(void *arg)
+static int count;
+
+static void *fn(void *arg)
 {
 	int i = (int) arg;
 
@@ -34,7 +33,7 @@ int main()
 		sched_enqueue(t);
 	}
 
-	pthread_yield();
+	sched_yield();
 
 	if (count != 15) {
 		printk("count != 15 (%d)\n", count);
