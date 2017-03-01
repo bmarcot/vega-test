@@ -56,7 +56,13 @@ def print_qemu_version():
     cmd = [ "qemu-system-arm", "--version" ]
     res = subprocess.run(cmd, universal_newlines=True, stdout=subprocess.PIPE,
                          stderr=subprocess.STDOUT)
-    print(res.stdout)
+    print("QEMU version:\n" + res.stdout)
+
+def print_gcc_version():
+    cmd = [ "arm-none-eabi-gcc", "--version" ]
+    res = subprocess.run(cmd, universal_newlines=True, stdout=subprocess.PIPE,
+                         stderr=subprocess.STDOUT)
+    print("GCC version:\n" + res.stdout)
 
 def print_header(testname, arch):
     print("--------------------------------------------")
@@ -81,6 +87,7 @@ def run_test(testname, verbose, platform):
 
 def main():
     print_qemu_version()
+    print_gcc_version()
     print('Staging %d tests: %s' % (len(testsuite_v7m), ', '.join(testsuite_v7m)))
     failed_count = 0
     results = dict()
