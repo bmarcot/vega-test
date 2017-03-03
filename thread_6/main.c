@@ -2,8 +2,7 @@
 
 #include <pthread.h>
 #include <stddef.h>
-
-#include "kernel.h"
+#include <kernel/kernel.h>
 #include "unit.h"
 
 static void *fn(void *arg)
@@ -24,7 +23,7 @@ int main()
 			TEST_EXIT(1);
 		}
 		pthread_detach(thread);
-		pthread_yield();
+		sched_yield();
 	}
 	printk("\n");
 	TEST_EXIT(0);
