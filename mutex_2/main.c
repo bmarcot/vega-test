@@ -35,7 +35,7 @@ int main(void)
 	if (pthread_mutex_lock(&lock))
 		TEST_EXIT(1);
 	printk("thread 1: mutex locked, yield now...\n");
-	pthread_yield();
+	sched_yield();
 	if (has_waited)
 		TEST_EXIT(1);
 	printk("thread 1: return from yield.\n");
