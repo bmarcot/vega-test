@@ -119,12 +119,12 @@ int main(void *arg)
 		test_svcall5,
 	};
 
-	syscall_register(42, sysarg0_handler);
-	syscall_register(43, sysarg1_handler);
-	syscall_register(44, sysarg2_handler);
-	syscall_register(45, sysarg3_handler);
-	syscall_register(46, sysarg4_handler);
-	syscall_register(47, sysarg5_handler);
+	syscall_register(42, (void *(*)())sysarg0_handler);
+	syscall_register(43, (void *(*)())sysarg1_handler);
+	syscall_register(44, (void *(*)())sysarg2_handler);
+	syscall_register(45, (void *(*)())sysarg3_handler);
+	syscall_register(46, (void *(*)())sysarg4_handler);
+	syscall_register(47, (void *(*)())sysarg5_handler);
 
 	for (int i = 0; i <= 5; i++) {
 		printk("Test syscall with %d arg(s).\n", i);
