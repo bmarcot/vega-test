@@ -73,7 +73,7 @@ def print_header(testname, arch):
 def run_test(testname, verbose, platform):
     # platform = os.getenv('PLATFORM', 'qemu')
     cmd = [ "make", "TEST=%s" % testname,
-            "--file", "test/Makefile", "clean", "all", "run" ]
+            "--file", "test/Makefile", "clean_test", "all", "run" ]
     res = subprocess.run(cmd, universal_newlines=True, stdout=subprocess.PIPE,
                          stderr=subprocess.STDOUT)
     if (verbose == True):

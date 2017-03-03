@@ -1,3 +1,4 @@
+
 CSRC = $(wildcard test/$(TEST)/*.c)
 SSRC = $(wildcard test/$(TEST)/*.S)
 
@@ -9,7 +10,7 @@ CFLAGS = -Itest/lib
 # Build a romFS drive if there is a /home directory at the root
 # of the testcase directory.
 ifneq ("$(wildcard test/$(TEST)/home)","")
-OBJS = test/$(TEST)/sda1.o
+  OBJS = test/$(TEST)/sda1.o
 endif
 
 include Makefile
@@ -33,3 +34,6 @@ include Makefile
 
 clean::
 	rm -f $(TEST_OBJ) $(LIB_OBJ) test/$(TEST)/sda1 test/$(TEST)/sda1.o
+
+clean_test:
+	rm -f $(NAME).elf $(TEST_OBJ) test/$(TEST)/sda1 test/$(TEST)/sda1.o
