@@ -15,11 +15,11 @@ void *fn(__unused void *arg)
 	if (!pthread_mutex_trylock(&lock))
 		return NULL;
 	printk("thread 2: mutex was locked...\n");
-	pthread_yield();
+	sched_yield();
 	printk("thread 2: re-acquire mutex...\n");
 	if (pthread_mutex_trylock(&lock))
 		return NULL;
-	pthread_yield();
+	sched_yield();
 	if (pthread_mutex_unlock(&lock))
 		return NULL;
 
@@ -38,12 +38,12 @@ int main(void)
 	if (pthread_mutex_trylock(&lock))
 		TEST_EXIT(1);
 	printk("thread 1: mutex locked, yield now...\n");
-	pthread_yield();
+	sched_yield();
 	printk("thread 1: return from yield.\n");
 	if (pthread_mutex_unlock(&lock))
 		TEST_EXIT(1);
 	printk("thread 1: mutex released...\n");
-	pthread_yield();
+	sched_yield();
 
 	/* re-acquire the mutex to check the thread released the mutex
 	   correctly */
