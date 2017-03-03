@@ -34,7 +34,7 @@ int main()
 	}
 
 	printk("locked the mutex, now yielding...\n");
-	pthread_yield();
+	sched_yield();
 
 	printk("unlocking the mutex...\n");
 	pthread_mutex_unlock(&m);
