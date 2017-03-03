@@ -1,6 +1,6 @@
 #include <stddef.h>
 
-#include <kernel/page.h>
+#include <kernel/mm/page.h>
 #include "unit.h"
 
 int main()
