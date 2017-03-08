@@ -53,6 +53,7 @@ testsuite_v7m = [
     "slab_1",
     "slab_2",
     "mmap_1",
+    "page_3",
 ]
 
 def print_qemu_version():
