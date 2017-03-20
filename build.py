@@ -46,6 +46,7 @@ testsuite_v7m = [
     "fs_3",
     "fs_4",
     "fs_5",
+    "fs_6",
     "mtdram_1",
     "readdir_1",
     "stat_1",
