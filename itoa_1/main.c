@@ -1,76 +1,93 @@
 #include "unit.h"
 #include "utils.h"
 #include <string.h>
-#include "kernel.h"
 
-int _itoa_00(void)
+#include <kernel/kernel.h>
+
+int itoa_base_00(void)
 {
 	char buf[64];
-	if (strcmp("0", _itoa(0, buf, "0")))
+	if (strcmp("0", itoa_base(0, buf, 1)))
 		return -1;
 	return 0;
 }
 
-int _itoa_01(void)
+int itoa_base_01(void)
 {
 	char buf[64];
-	if (strcmp("0", _itoa(0, buf, "01234567")))
+	if (strcmp("0", itoa_base(0, buf, 8)))
 		return -1;
 	return 0;
 }
 
-int _itoa_02(void)
+int itoa_base_02(void)
 {
 	char buf[64];
-	if (strcmp("1234567890", _itoa(1234567890, buf, "0123456789")))
+	if (strcmp("1234567890", itoa_base(1234567890, buf, 10)))
 		return -1;
 	return 0;
 }
 
-int _itoa_03(void)
+int itoa_base_03(void)
 {
 	char buf[64];
-	if (strcmp("20", _itoa(32, buf, "0123456789abcdef")))
+	if (strcmp("20", itoa_base(32, buf, 16)))
 		return -1;
 	return 0;
 }
 
-int _itoa_04(void)
+int itoa_base_04(void)
 {
 	char buf[64];
-	if (strcmp("21", _itoa(33, buf, "0123456789abcdef")))
+	if (strcmp("21", itoa_base(33, buf, 16)))
 		return -1;
 	return 0;
 }
 
-int _itoa_05(void)
+int itoa_base_05(void)
 {
 	char buf[64];
-	if (_itoa(458, buf, ""))
+	if (itoa_base(458, buf, 2048))
 		return -1;
 	return 0;
 }
 
-int _itoa_06(void)
+int itoa_base_06(void)
 {
 	char buf[64];
-	if (strcmp("ffffffff", _itoa(0xffffffff, buf, "0123456789abcdef")))
+	if (strcmp("ffffffff", itoa_base(0xffffffff, buf, 16)))
 		return -1;
 	return 0;
 }
 
-int _itoa_07(void)
+int itoa_base_07(void)
 {
 	char buf[64];
-	if (strcmp("4294967295", _itoa(0xffffffff, buf, "0123456789")))
+	if (strcmp("-1", itoa_base(0xffffffff, buf, 10)))
 		return -1;
 	return 0;
 }
 
-int _itoa_08(void)
+int itoa_base_08(void)
 {
 	char buf[64];
-	if (strcmp("1000", _itoa(0x1000, buf, "0123456789abcdef")))
+	if (strcmp("1000", itoa_base(0x1000, buf, 16)))
+		return -1;
+	return 0;
+}
+
+int itoa_base_09(void)
+{
+	char buf[64];
+	if (strcmp("-752", itoa_base(-752, buf, 10)))
+		return -1;
+	return 0;
+}
+
+int itoa_base_10(void)
+{
+	char buf[64];
+	if (strcmp("0", itoa_base(0, buf, 10)))
 		return -1;
 	return 0;
 }
@@ -78,13 +95,15 @@ int _itoa_08(void)
 int main()
 {
 	int status = 0;
-	int (*test[])(void) = { _itoa_00, _itoa_01, _itoa_02,
-				_itoa_03, _itoa_04, _itoa_05,
-				_itoa_06, _itoa_07, _itoa_08 };
+	int (*test[])(void) = { itoa_base_00, itoa_base_01, itoa_base_02,
+				itoa_base_03, itoa_base_04, itoa_base_05,
+				itoa_base_06, itoa_base_07, itoa_base_08,
+				itoa_base_09, itoa_base_10 };
 
-	for (int i = 0; i <= 8; i++) {
-		printk("itoa test #%d\n", i);
-		status += test[i]();
+	for (int i = 0; i < (int)ARRAY_SIZE(test); i++) {
+		int r = test[i]();
+		/* printk("itoa test #%d %s\n", i, r ? "(failed)" : ""); */
+		status += r;
 	}
 	if (status)
 		TEST_EXIT(1);
