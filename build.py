@@ -54,6 +54,7 @@ testsuite_v7m = [
     "slab_1",
     "slab_2",
     "mmap_1",
+    "mmap_2",
     "page_3",
 ]
 
