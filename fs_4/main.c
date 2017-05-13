@@ -16,20 +16,15 @@
 extern char _binary_sda1_start;
 struct mtd_info mtd1;
 
-static struct inode inode = {
-	.i_private = &mtd1,
-};
-
 void flash_init(void)
 {
-	struct dentry dentry = { .d_inode = &inode,
-				 .d_name  = "mtd1" };
+	struct dentry dentry = { .d_name  = "mtd1" };
 
 	printk("Creating MTD device %s\n", dentry.d_name);
 	if (mtdram_init_device(&mtd1, &_binary_sda1_start, 1024,
 				dentry.d_name))
 		printk("error: mtdram init device failed\n");
-	vfs_link(NULL, dev_inode(), &dentry);
+	add_mtd_device(&mtd1, dentry.d_name);
 }
 
 int main()
@@ -38,7 +33,6 @@ int main()
 	char buffer[128];
 
 	memset(buffer, 0, 128);
-	init_tmpfs_inode(&inode);
 	flash_init();
 	mount("/dev/mtd1", "/dev/flash", "romfs", 0, 0);
 
