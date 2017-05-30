@@ -59,6 +59,7 @@ testsuite_v7m = [
     "page_3",
     "lib_rbtree_1",
     "fork_1",
+    "elf_1",
 ]
 
 def print_qemu_version():
