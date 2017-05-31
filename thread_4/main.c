@@ -23,11 +23,9 @@ static void *fn(void *arg)
 int main()
 {
 	struct thread_info *t;
-	CURRENT_TASK_INFO(curr_task);
 
 	for (int i = 0; i < 15; i++) {
-		t = thread_create(fn, (void *) i, THREAD_PRIV_USER, 256,
-			curr_task);
+		t = thread_create(fn, (void *) i, THREAD_PRIV_USER, 256);
 		if (t == NULL) {
 			printk("failed: can't create new posix thread.\n");
 			TEST_EXIT(1);
