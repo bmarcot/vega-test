@@ -1,7 +1,7 @@
 #include <pthread.h>
 
 #include <kernel/kernel.h>
-#include <kernel/scheduler.h>
+#include <kernel/sched.h>
 #include <kernel/task.h>
 #include <kernel/thread.h>
 
