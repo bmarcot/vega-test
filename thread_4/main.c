@@ -2,7 +2,6 @@
 
 #include <kernel/kernel.h>
 #include <kernel/sched.h>
-#include <kernel/task.h>
 #include <kernel/thread.h>
 
 #include "unit.h"
