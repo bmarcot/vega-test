@@ -21,6 +21,7 @@ int main()
 
 	/* reduce the thread stack size to 256 bytes */
 	pthread_attr_t attr;
+	pthread_attr_init(&attr);
 	pthread_attr_setstacksize(&attr, 256);
 
 	/* create 25 threads */
