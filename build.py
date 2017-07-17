@@ -64,9 +64,6 @@ testsuite = [
 ]
 
 blacklist = [
-    "cond_1",
-    "cond_2",
-    "cond_3",
     "lib_rbtree_1",
     "thread_4",
 ]
