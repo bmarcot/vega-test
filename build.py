@@ -67,6 +67,7 @@ blacklist = [
     "cond_1",
     "cond_2",
     "cond_3",
+    "lib_rbtree_1",
     "thread_4",
 ]
 
@@ -131,8 +132,11 @@ def main():
     for key in sorted(results.keys()):
         print("% 16s:  %s" % (key, results[key]))
 
-    print("\nRan %d tests in %d.%ds" % (len(testsuite) - len(blacklist),
-                                        (t - t0).seconds, (t - t0).microseconds / 1000))
+    status = "ko" if failed_count else "ok"
+    print("\nRan %d tests in %d.%ds (\033[1;37m%s\033[0m)" % (
+        len(testsuite) - len(blacklist),
+        (t - t0).seconds, (t - t0).microseconds / 1000,
+        status))
 
     if (failed_count):
         exit(1)
