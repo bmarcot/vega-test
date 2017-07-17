@@ -4,7 +4,7 @@ from datetime import datetime
 from re import search
 import os
 
-testsuite_v7m = [
+testsuite = [
     "test_1",
     "bitops_1",
     "thread_1",
@@ -63,6 +63,13 @@ testsuite_v7m = [
     "setpriority_1",
 ]
 
+blacklist = [
+    "cond_1",
+    "cond_2",
+    "cond_3",
+    "thread_4",
+]
+
 def print_qemu_version():
     cmd = [ "qemu-system-arm", "--version" ]
     res = subprocess.run(cmd, universal_newlines=True, stdout=subprocess.PIPE,
@@ -96,14 +103,22 @@ def run_test(testname, verbose, platform):
         return 1
     return 0
 
+def is_test_blacklisted(testname):
+    for t in blacklist:
+        if t == testname:
+            return 1
+    return 0
+
 def main():
     print_qemu_version()
     print_gcc_version()
-    print('Staging %d tests: %s' % (len(testsuite_v7m), ', '.join(testsuite_v7m)))
+    print('Staging %d tests: %s' % (len(testsuite), ', '.join(testsuite)))
     failed_count = 0
     results = dict()
     t0 = datetime.now()
-    for testcase in testsuite_v7m:
+    for testcase in testsuite:
+        if is_test_blacklisted(testcase):
+            continue
         print_header(testcase, 'v7m')
         status = run_test(testcase, True, 'qemu')
         failed_count += status
@@ -116,7 +131,7 @@ def main():
     for key in sorted(results.keys()):
         print("% 16s:  %s" % (key, results[key]))
 
-    print("\nRan %d tests in %d.%ds" % (len(testsuite_v7m),
+    print("\nRan %d tests in %d.%ds" % (len(testsuite) - len(blacklist),
                                         (t - t0).seconds, (t - t0).microseconds / 1000))
 
     if (failed_count):
