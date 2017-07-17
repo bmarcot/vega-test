@@ -13,7 +13,7 @@
 #define printk_red(format, ...)				\
 	printk(C_RED format C_NORMAL, ##__VA_ARGS__);
 
-#include <arch/semihosting.h>
+void v7m_semih_exit(int status);
 
 #define TEST_EXIT(status) ({			\
 	if (status) {				\
