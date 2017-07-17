@@ -8,6 +8,7 @@
 #include "unit.h"
 
 static pthread_mutex_t m;
+int count = 0;
 
 void *fn(__unused void *arg)
 {
@@ -15,6 +16,8 @@ void *fn(__unused void *arg)
 	pthread_mutex_lock(&m);
 	printk("OK, thread %d got the mutex!\n", (int)arg);
 	pthread_mutex_unlock(&m);
+
+	count++;
 
 	return NULL;
 }
@@ -38,6 +41,9 @@ int main()
 
 	printk("unlocking the mutex...\n");
 	pthread_mutex_unlock(&m);
+
+	while (count != 4)
+		sched_yield();
 
 	printk("relocking the mutex...\n");
 	pthread_mutex_lock(&m);
