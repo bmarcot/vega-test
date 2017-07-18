@@ -129,7 +129,7 @@ def main():
     for key in sorted(results.keys()):
         print("% 16s:  %s" % (key, results[key]))
 
-    status = "ko" if failed_count else "ok"
+    status = "failed" if failed_count else "ok"
     print("\nRan %d tests in %d.%ds (\033[1;37m%s\033[0m)" % (
         len(testsuite) - len(blacklist),
         (t - t0).seconds, (t - t0).microseconds / 1000,
