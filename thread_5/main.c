@@ -1,9 +1,9 @@
 /* test thread_join() */
 
+#include <stddef.h>
 #include "kernel.h"
 #include "pthread.h"
 #include "unit.h"
-#include "linux/stddef.h"
 
 void *fn(void *arg)
 {
