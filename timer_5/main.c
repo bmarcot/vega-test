@@ -8,35 +8,50 @@
 
 #include "unit.h"
 
+#include <uapi/kernel/signal.h>
+
+int timer_create(clockid_t clockid, struct sigevent *sevp,
+		timer_t *timerid);
+int timer_settime(timer_t timerid, int flags,
+		const struct itimerspec *new_value,
+		struct itimerspec *old_value);
+
 static volatile int canary;
 static volatile int count;
 
-static void event_should_not_happen(union sigval sival)
+
+static void event_should_not_happen(int sig, siginfo_t *siginfo,
+				void *unused)
 {
-	(void)sival;
+	(void)sig, (void)unused, (void)siginfo;
 
 	canary++;
 }
 
-static void event_check(union sigval sival)
+static void event_check(int sig, siginfo_t *siginfo,
+				void *unused)
 {
-	(void)sival;
+	(void)sig, (void)unused, (void)siginfo;
 
 	count++;
 }
 
 int main()
 {
+	struct sigaction act_a = { .sa_sigaction = event_should_not_happen,
+				   .sa_flags = SA_SIGINFO, };
+	sigaction(SIGUSR1, &act_a, NULL);
 	timer_t timerid_a;
-	struct sigevent sevp_a = {
-		.sigev_notify_function = event_should_not_happen,
-	};
+	struct sigevent sevp_a = { .sigev_notify = SIGEV_SIGNAL,
+				   .sigev_signo = SIGUSR1, };
 	timer_create(0, &sevp_a, &timerid_a);
 
+	struct sigaction act_b = { .sa_sigaction = event_check,
+				   .sa_flags = SA_SIGINFO, };
+	sigaction(SIGUSR2, &act_b, NULL);
 	timer_t timerid_b;
-	struct sigevent sevp_b = {
-		.sigev_notify_function = event_check,
-	};
+	struct sigevent sevp_b = { .sigev_notify = SIGEV_SIGNAL,
+				   .sigev_signo = SIGUSR2, };
 	timer_create(0, &sevp_b, &timerid_b);
 
 	struct itimerspec val_a = {
