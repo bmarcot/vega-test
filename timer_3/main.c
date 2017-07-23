@@ -12,7 +12,7 @@ static void event(union sigval sival)
 
 int main()
 {
-	struct sigevent sevp = { .sigev_notify_function = event };
+	struct sigevent sevp = {0};
 	struct itimerspec val = { .it_value = { .tv_sec = 5, .tv_nsec = 0 } };
 	timer_t timerid;
 
