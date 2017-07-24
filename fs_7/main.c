@@ -4,7 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include <vega/sys/mount.h>
+#include <sys/mount.h>
 
 #include <kernel/fs.h>
 #include <kernel/kernel.h>

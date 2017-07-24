@@ -1,8 +1,7 @@
 /* simple mmap() test, check non-nil memory is allocated */
 
 #include <stddef.h>
-
-#include <vega/sys/mman.h>
+#include <sys/mman.h>
 
 #include "unit.h"
 

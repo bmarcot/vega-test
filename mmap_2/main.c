@@ -3,8 +3,8 @@
 #include <string.h>
 #include <fcntl.h>
 
-#include <vega/sys/mman.h>
-#include <vega/sys/mount.h>
+#include <sys/mman.h>
+#include <sys/mount.h>
 
 #include <kernel/fs.h>
 #include <kernel/kernel.h>

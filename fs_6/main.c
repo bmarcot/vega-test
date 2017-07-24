@@ -2,7 +2,7 @@
 
 #include <fcntl.h>
 
-#include <vega/sys/mount.h>
+#include <sys/mount.h>
 
 #include <kernel/fs.h>
 #include <kernel/kernel.h>

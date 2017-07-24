@@ -1,7 +1,7 @@
 #include <stddef.h>
 #include <string.h>
 
-#include <vega/dirent.h>
+#include <dirent.h>
 
 #include <kernel/fs.h>
 #include <kernel/kernel.h>
