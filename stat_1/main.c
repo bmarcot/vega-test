@@ -2,6 +2,7 @@
 
 #include <sys/stat.h>
 #include <sys/mount.h>
+#include <unistd.h>
 
 #include <kernel/fs.h>
 #include <kernel/kernel.h>

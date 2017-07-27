@@ -1,7 +1,6 @@
 /* simple test that sets task priority */
 
 #include <sys/resource.h>
-#include <sys/time.h>
 #include <unistd.h>
 
 #include "unit.h"
