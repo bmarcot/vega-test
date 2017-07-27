@@ -67,6 +67,7 @@ blacklist = [
     "lib_rbtree_1",
     "thread_4",
     "sigqueue_2",
+    "sysconf_1",
 ]
 
 def print_qemu_version():
