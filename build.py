@@ -31,6 +31,7 @@ testsuite = [
     "raise_1",
     "raise_2",
     "raise_3",
+    "raise_4",
     "sigqueue_1",
     "sigqueue_2",
     "sysconf_1",
