@@ -1,7 +1,7 @@
 // arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -pie -Wl,-z,max-page-size=0 -nostdlib -nostartfiles main.c
 
 #define INIT_VAL 0xdeadbeef
-#define SYS_EXIT 22
+#define SYS_EXIT 21
 
 unsigned int val = INIT_VAL;
 
