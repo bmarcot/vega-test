@@ -62,6 +62,7 @@ testsuite = [
     "fork_1",
     "elf_1",
     "setpriority_1",
+    "clockevents_1",
 ]
 
 blacklist = [
