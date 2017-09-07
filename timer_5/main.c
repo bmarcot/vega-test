@@ -55,11 +55,11 @@ int main()
 	timer_create(0, &sevp_b, &timerid_b);
 
 	struct itimerspec val_a = {
-		.it_value    = { .tv_sec = 1, .tv_nsec = 0 },
+		.it_value    = { .tv_sec = 2, .tv_nsec = 0 },
 		.it_interval = { .tv_sec = 0, .tv_nsec = 0 },
 	};
 	struct itimerspec val_b = {
-		.it_value    = { .tv_sec = 2, .tv_nsec = 0 },
+		.it_value    = { .tv_sec = 4, .tv_nsec = 0 },
 		.it_interval = { .tv_sec = 0, .tv_nsec = 0 },
 	};
 	struct itimerspec val_zero = {
