@@ -20,7 +20,7 @@ int main()
 	timer_settime(timerid, 0, &val, NULL);
 	do {
 		timer_gettime(timerid, &val);
-	} while (val.it_value.tv_sec != 4);
+	} while (val.it_value.tv_sec > 3);
 
 	TEST_EXIT(0);
 }
