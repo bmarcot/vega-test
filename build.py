@@ -72,6 +72,7 @@ blacklist = [
     "thread_4",
     "sigqueue_2",
     "sysconf_1",
+    "hrtimer_2",
 ]
 
 def print_qemu_version():
