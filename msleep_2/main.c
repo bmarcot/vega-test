@@ -11,8 +11,9 @@ static int val;
 
 static void *fn(void *arg)
 {
-	msleep(300 * (1 + (int)arg));
+	msleep(200 * (1 + (int)arg));
 	val++;
+	printk("Thread %d woke up...\n", (int)arg);
 
 	return 0;
 }
