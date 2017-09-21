@@ -65,6 +65,7 @@ testsuite = [
     "clockevents_1",
     "hrtimer_1",
     "hrtimer_2",
+    "clock_1",
 ]
 
 blacklist = [
