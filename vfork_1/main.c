@@ -1,9 +1,12 @@
-/* a simple fork() test */
+/* simple vfork() test */
 
 #include <pthread.h>
 #include <unistd.h>
 
 #include "unit.h"
+
+int sched_yield(void);
+pid_t vfork(void);
 
 int count;
 
@@ -16,7 +19,7 @@ int main(void)
 {
 	pid_t pid;
 
-	pid = fork();
+	pid = vfork();
 	printk("In %s process (pid=%d)\n", pid > 0 ? "parent" : "child",
 		getpid());
 

@@ -59,7 +59,7 @@ testsuite = [
     "mmap_2",
     "page_3",
     "lib_rbtree_1",
-    "fork_1",
+    "vfork_1",
     "elf_1",
     "setpriority_1",
     "clockevents_1",
