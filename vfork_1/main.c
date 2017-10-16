@@ -3,32 +3,26 @@
 #include <pthread.h>
 #include <unistd.h>
 
+#include "syscall-wrappers.h"
+
 #include "unit.h"
-
-int sched_yield(void);
-pid_t vfork(void);
-
-int count;
-
-static void _Exit(int status)
-{
-	pthread_exit((void *)status);
-}
 
 int main(void)
 {
 	pid_t pid;
+	static int count = 0;
 
 	pid = vfork();
 	printk("In %s process (pid=%d)\n", pid > 0 ? "parent" : "child",
 		getpid());
 
-	count++;
-	while (count < 2)
-		sched_yield();
-
-	if (pid > 0)
+	if (pid > 0) {
+		/* child should exit before its parent */
+		if (!count)
+			TEST_EXIT(1);
 		TEST_EXIT(0);
-	else
+	} else {
+		count++;
 		_Exit(0);
+	}
 }
