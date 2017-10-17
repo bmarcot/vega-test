@@ -1,6 +1,7 @@
 /* create/delete 1000 threads */
 
 #include <pthread.h>
+#include <sched.h>
 #include <stddef.h>
 #include <kernel/kernel.h>
 #include "unit.h"

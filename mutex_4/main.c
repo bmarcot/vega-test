@@ -1,4 +1,6 @@
 /* strong mutex test, mixing lock/unlock/trylock */
+
+#include <sched.h>
 #include <stddef.h>
 #include <stdlib.h>
 #include <sys/cdefs.h>

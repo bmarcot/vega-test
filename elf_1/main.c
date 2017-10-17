@@ -1,6 +1,7 @@
 /* test simple romFS */
 
 #include <fcntl.h>
+#include <sched.h>
 #include <string.h>
 #include <unistd.h>
 

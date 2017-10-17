@@ -1,4 +1,5 @@
 #include <pthread.h>
+#include <sched.h>
 
 #include <kernel/kernel.h>
 

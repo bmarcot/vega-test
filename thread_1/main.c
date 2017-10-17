@@ -1,6 +1,7 @@
 /* simple thread create and thread yield */
 
 #include <pthread.h>
+#include <sched.h>
 
 #include <kernel/kernel.h>
 
