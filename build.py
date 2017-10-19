@@ -60,6 +60,7 @@ testsuite = [
     "page_3",
     "lib_rbtree_1",
     "vfork_1",
+    "vfork_2",
     "elf_1",
     "setpriority_1",
     "clockevents_1",
