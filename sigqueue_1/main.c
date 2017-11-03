@@ -2,10 +2,10 @@
 
 #include <stddef.h>
 #include <signal.h>
+#include <unistd.h>
 
 #include "kernel.h"
 #include "unit.h"
-
 #include "platform.h"
 
 int val;
@@ -44,7 +44,7 @@ int main(void *arg)
 	/* test handler with SA_SIGINFO attached */
 	const struct sigaction act = { .sa_sigaction = sigact, .sa_flags = SA_SIGINFO };
 	sigaction(SIGUSR1, &act, NULL);
-	retval = sigqueue(0, SIGUSR1, (union sigval){ .sival_int = 0xabadcafe });
+	retval = sigqueue(getpid(), SIGUSR1, (union sigval){ .sival_int = 0xabadcafe });
 	if (retval) {
 		printk("error: %d: incorrect return value\n", retval);
 		TEST_EXIT(1);
