@@ -1,5 +1,6 @@
 #include <stddef.h>
 #include <time.h>
+#include <signal.h>
 
 #include "unit.h"
 #include <kernel/time.h>
