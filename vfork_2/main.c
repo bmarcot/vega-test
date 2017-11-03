@@ -13,7 +13,7 @@ int main(void)
 	pid_t pid;
 	static int i = 0;
 
-	while (i < 1000000) {
+	while (i < 200000) {
 		pid = vfork();
 		if (!pid) {
 			_Exit(0);
