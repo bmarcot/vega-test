@@ -69,6 +69,7 @@ testsuite = [
     "clock_1",
     "gettid_1",
     "getppid_1",
+    "raise_5",
 ]
 
 blacklist = [
