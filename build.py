@@ -70,6 +70,9 @@ testsuite = [
     "gettid_1",
     "getppid_1",
     "raise_5",
+    "kill_1",
+    "nanosleep_1",
+    "nanosleep_2",
 ]
 
 blacklist = [
