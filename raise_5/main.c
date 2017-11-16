@@ -19,7 +19,7 @@ int main(void)
 	} else {
 		if (raise(SIGKILL))
 			TEST_EXIT(1);
-		/* never reached */
+		TEST_EXIT(1); /* never reached */
 	}
 
 	TEST_EXIT(0);
