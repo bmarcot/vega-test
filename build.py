@@ -73,6 +73,7 @@ testsuite = [
     "kill_1",
     "nanosleep_1",
     "nanosleep_2",
+    "pause_1",
 ]
 
 blacklist = [
