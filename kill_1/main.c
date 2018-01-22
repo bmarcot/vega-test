@@ -11,7 +11,7 @@
 pid_t getppid(void);
 int kill(pid_t pid, int sig);
 
-static int val;
+static int val, canary;
 static pid_t ppid;
 
 static void handler(int sig)
@@ -36,9 +36,14 @@ int main(void)
 	pid = vfork();
 	if (!pid) {
 		kill(getppid(), SIGUSR1);
+		if (canary) {
+			printk("Woke-up parent\n");
+			TEST_EXIT(1);
+		}
 		_Exit(0);
 	} else {
 		waitpid(pid, NULL, 0);
+		canary++;
 		if (!val) {
 			printk("Signal not received\n");
 			TEST_EXIT(1);
