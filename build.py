@@ -61,6 +61,7 @@ testsuite = [
     "lib_rbtree_1",
     "vfork_1",
     "vfork_2",
+    "vfork_3",
     "elf_1",
     "setpriority_1",
     "clockevents_1",
