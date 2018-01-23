@@ -15,7 +15,8 @@ int main(void)
 
 	pid = vfork();
 	if (pid > 0) {
-		waitpid(pid, NULL, 0);
+		if (pid != waitpid(pid, NULL, 0))
+			TEST_EXIT(1);
 	} else {
 		if (raise(SIGKILL))
 			TEST_EXIT(1);

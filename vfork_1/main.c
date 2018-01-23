@@ -21,7 +21,8 @@ int main(void)
 		/* child should exit before its parent */
 		if (!count)
 			TEST_EXIT(1);
-		waitpid(pid, NULL, 0);
+		if (pid != waitpid(pid, NULL, 0))
+			TEST_EXIT(1);
 	} else {
 		count++;
 		_Exit(0);

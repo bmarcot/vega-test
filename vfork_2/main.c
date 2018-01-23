@@ -18,7 +18,8 @@ int main(void)
 		if (!pid) {
 			_Exit(0);
 		} else {
-			waitpid(pid, NULL, 0);
+			if (pid != waitpid(pid, NULL, 0))
+				TEST_EXIT(1);
 			i++;
 		}
 	}

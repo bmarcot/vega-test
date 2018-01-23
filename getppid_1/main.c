@@ -21,7 +21,8 @@ int main(void)
 	if (pid > 0) {
 		if (pid != child_pid)
 			TEST_EXIT(1);
-		waitpid(pid, NULL, 0);
+		if (pid != waitpid(pid, NULL, 0))
+			TEST_EXIT(1);
 	} else {
 		child_pid = getpid();
 		if (getppid() != parent_pid)
