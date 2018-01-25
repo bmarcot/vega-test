@@ -13,7 +13,7 @@ void sigact(int sig, siginfo_t *siginfo, void *unused)
 	(void)unused;
 
 	printk("In a sigaction handler (signo=%d, sival=0x%x)\n",
-		sig, siginfo->si_value.sival_int);
+		sig, siginfo->_rt.si_value.sival_int);
 	if (sig != signo)
 		TEST_EXIT(1);
 

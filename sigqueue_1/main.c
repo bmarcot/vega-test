@@ -24,11 +24,11 @@ void sigact(int sig, siginfo_t *siginfo, void *unused)
 	(void)unused;
 
 	printk("In signal sigaction, received signal %d with value 0x%x\n",
-		sig, siginfo->si_value.sival_int);
+		sig, siginfo->_rt.si_value.sival_int);
 
 	if (sig != SIGUSR1)
 		TEST_EXIT(1);
-	if ((unsigned int)siginfo->si_value.sival_int != 0xabadcafe)
+	if ((unsigned int)siginfo->_rt.si_value.sival_int != 0xabadcafe)
 		TEST_EXIT(1);
 
 	val = 1;

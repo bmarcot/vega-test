@@ -21,8 +21,8 @@ static void event(int sig, siginfo_t *siginfo, void *unused)
 {
 	(void)sig, (void)unused;
 
-	printk("In event %d.\n", siginfo->si_value.sival_int);
-	vals[siginfo->si_value.sival_int] = 1;
+	printk("In event %d.\n", siginfo->_timer.si_value.sival_int);
+	vals[siginfo->_timer.si_value.sival_int] = 1;
 }
 
 int main(void)

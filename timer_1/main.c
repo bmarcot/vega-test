@@ -22,9 +22,9 @@ static void event(int sig, siginfo_t *siginfo, void *unused)
 {
 	(void)sig, (void)unused;
 
-	if (siginfo->si_value.sival_int != (int)EXPECTED_VALUE) {
+	if (siginfo->_timer.si_value.sival_int != (int)EXPECTED_VALUE) {
 		printk("error: Did not received expected value (%x != %x)\n",
-			siginfo->si_value.sival_int, EXPECTED_VALUE);
+			siginfo->_timer.si_value.sival_int, EXPECTED_VALUE);
 		TEST_EXIT(1);
 	}
 	received_signal = 1;
