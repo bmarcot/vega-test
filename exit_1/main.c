@@ -25,7 +25,7 @@ int main(void)
 	if (pid > 0) {
 		if (waitpid(pid, &status, 0) == -1)
 			TEST_EXIT(1);
-		if (status != 42)
+		if (WEXITSTATUS(status) != 42)
 			TEST_EXIT(1);
 	} else {
 		if (pthread_create(&thread0, NULL, start0, NULL))
