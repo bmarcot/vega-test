@@ -76,6 +76,7 @@ testsuite = [
     "nanosleep_2",
     "pause_1",
     "exit_1",
+    "exit_2",
 ]
 
 blacklist = [
