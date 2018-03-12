@@ -77,6 +77,7 @@ testsuite = [
     "pause_1",
     "exit_1",
     "exit_2",
+    "sigprocmask_1",
 ]
 
 blacklist = [
