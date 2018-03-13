@@ -8,6 +8,8 @@
 #include "syscall-wrappers.h"
 #include "unit.h"
 
+int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
+
 static int val;
 
 static void handler(int sig)
