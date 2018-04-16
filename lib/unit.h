@@ -3,6 +3,8 @@
 
 #include "kernel.h"
 
+#include <libsemi/v7m_semi.h>
+
 #define C_GREEN	 "\033[1;32m"
 #define C_RED    "\033[1;31m"
 #define C_NORMAL "\033[0m"
@@ -13,8 +15,6 @@
 #define printk_red(format, ...)				\
 	printk(C_RED format C_NORMAL, ##__VA_ARGS__);
 
-void v7m_semih_exit(int status);
-
 #define TEST_EXIT(status) ({			\
 	if (status) {				\
 		printk_red("test failed: %d", (status)); \
@@ -23,6 +23,6 @@ void v7m_semih_exit(int status);
 		printk_green("test passed");	\
 		printk("\n");			\
 	}					\
-	v7m_semih_exit(status); })
+	v7m_semi_exit(status); })
 
 #endif /* !TEST_LIB_UNIT_H */
