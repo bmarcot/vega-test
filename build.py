@@ -57,6 +57,7 @@ testsuite = [
     "slab_2",
     "mmap_1",
     "mmap_2",
+    "mmap_3",
     "page_3",
     "lib_rbtree_1",
     "vfork_1",
