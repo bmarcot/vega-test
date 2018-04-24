@@ -12,7 +12,7 @@ struct foo {
 
 int main(void)
 {
-	struct kmem_cache *cache = KMEM_CACHE(struct foo, "cache-foo");
+	struct kmem_cache *cache = KMEM_CACHE(foo);
 	if (cache == NULL) {
 		printk("error: Cannot create cache\n");
 		TEST_EXIT(1);
