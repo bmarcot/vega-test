@@ -1,9 +1,14 @@
 /* test the monotonic clock */
 
+#include <unistd.h>
 #include <time.h>
+
 #include <kernel/ktime.h>
 #include <kernel/time.h>
+
 #include "unit.h"
+
+int clock_gettime(clockid_t clk_id, struct timespec *tp);
 
 int main(void)
 {
