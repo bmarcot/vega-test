@@ -1,6 +1,6 @@
 /* simple clock event test */
 
-#include <kernel/time/clockevents.h>
+#include <kernel/clockevents.h>
 
 #include "unit.h"
 
