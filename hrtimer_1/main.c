@@ -1,29 +1,26 @@
 /* test a simple high-resolution timer */
 
-#include <kernel/time/hrtimer.h>
+#include <kernel/hrtimer.h>
 
 #include "unit.h"
 
 volatile int passed;
 
-static void callback(void *context)
+enum hrtimer_restart function(struct hrtimer *timer)
 {
-	if ((unsigned int)context != 0xbeefcafe)
-		TEST_EXIT(1);
 	passed = 1;
+
+	return HRTIMER_NORESTART;
 }
 
 int main()
 {
-	static struct hrtimer timer = {
-		.callback = callback,
-		.context = (void *)0xbeefcafe,
-	};
+	static struct hrtimer timer = {.function = function};
 
 	hrtimer_init(&timer);
 
 #define NSEC_PER_SEC 1000000000l
-	hrtimer_set_expires(&timer, 1ll * NSEC_PER_SEC);
+	hrtimer_start(&timer, 1ll * NSEC_PER_SEC);
 
 	while (!passed)
 		;
