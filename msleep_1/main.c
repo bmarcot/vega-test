@@ -5,9 +5,9 @@ extern void msleep(unsigned int);
 
 int main()
 {
-	for (int i = 0; i <= 13; i++) {
+	for (int i = 1; i <= 5; i++) {
 		printk("%d...\n", i);
-		msleep(700);
+		msleep(999);
 	}
 	printk("\n");
 
