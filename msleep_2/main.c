@@ -2,7 +2,6 @@
 
 #include <pthread.h>
 #include <stddef.h>
-#include "kernel.h"
 #include "unit.h"
 
 extern void msleep(unsigned int);
@@ -13,7 +12,7 @@ static void *fn(void *arg)
 {
 	msleep(200 * (1 + (int)arg));
 	val++;
-	printk("Thread %d woke up...\n", (int)arg);
+	test_printf("Thread %d woke up...\n", (int)arg);
 
 	return 0;
 }
@@ -24,7 +23,7 @@ int main()
 
 	for (int i = 0; i < 3; i++) {
 		if (pthread_create(&tip, NULL, fn, (void *)i)) {
-			printk("failed: can't create new posix thread.\n");
+			test_printf("failed: can't create new posix thread.\n");
 			TEST_EXIT(1);
 		}
 	}

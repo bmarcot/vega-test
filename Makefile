@@ -2,6 +2,8 @@
 CSRC = $(wildcard test/$(TEST)/*.c)
 SSRC = $(wildcard test/$(TEST)/*.S)
 
+CSRC += $(wildcard test/lib/*.c)
+
 TEST_OBJ = $(wildcard test/$(TEST)/*.o)
 LIB_OBJ = $(wildcard test/lib/*.o)
 

@@ -5,24 +5,17 @@
 
 #include <libsemi/v7m_semi.h>
 
+int test_printf(const char *format, ...);
+
 #define C_GREEN	 "\033[1;32m"
 #define C_RED    "\033[1;31m"
 #define C_NORMAL "\033[0m"
 
-#define printk_green(format, ...)			\
-	printk(C_GREEN format C_NORMAL, ##__VA_ARGS__);
-
-#define printk_red(format, ...)				\
-	printk(C_RED format C_NORMAL, ##__VA_ARGS__);
-
 #define TEST_EXIT(status) ({			\
-	if (status) {				\
-		printk_red("test failed: %d", (status)); \
-		printk("\n");			\
-	} else {				\
-		printk_green("test passed");	\
-		printk("\n");			\
-	}					\
+	if (status)				\
+		test_printf("\n"C_RED"test failed: %d\n"C_NORMAL, (status)); \
+	else					\
+		test_printf("\n"C_GREEN"test passed\n"C_NORMAL); \
 	v7m_semi_exit(status); })
 
 #endif /* !TEST_LIB_UNIT_H */
