@@ -22,6 +22,7 @@ testsuite = [
     "timer_3",
     "timer_4",
     "timer_5",
+    "timer_6",
     "mutex_1",
     "mutex_2",
     "mutex_3",
