@@ -58,5 +58,7 @@ int main()
 	if (strcmp(buffer, " dolor sit"))
 		TEST_EXIT(1);
 
+	close(fd);
+
 	TEST_EXIT(0);
 }
