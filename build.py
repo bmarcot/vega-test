@@ -83,6 +83,7 @@ testsuite = [
     "sigprocmask_2",
     "qemu_1",
     "sigpending_1",
+    "umount_1",
 ]
 
 blacklist = [
