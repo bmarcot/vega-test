@@ -81,7 +81,8 @@ testsuite = [
     "exit_2",
     "sigprocmask_1",
     "sigprocmask_2",
-    "qemu_1",
+    # missing event in GPTM peripheral in recent Qemu (>= 2.12.0)
+    # "qemu_1",
     "sigpending_1",
     "umount_1",
 ]
