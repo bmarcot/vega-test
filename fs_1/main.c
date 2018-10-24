@@ -19,8 +19,6 @@ int main()
 
 	for (int j = 0; j < 1000; j++) {
 		read(fd, &n, 4);
-		if (j < 40)
-			printk("%08x\n", n);
 		if (n == p) {
 			printk("error: got same random number %d twice in a row\n", n);
 			TEST_EXIT(1);
