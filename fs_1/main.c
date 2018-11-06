@@ -13,7 +13,7 @@ int main()
 
 	int fd = open("/dev/random", 0);
 	if (fd < 0) {
-		//printk("error: failed to open /dev/random\n");
+		printk("error: failed to open /dev/random\n");
 		TEST_EXIT(1);
 	}
 
@@ -22,7 +22,7 @@ int main()
 		/* if (j < 40) */
 		/* 	printk("%08x\n", n); */
 		if (n == p) {
-			//printk("error: got same random number %d twice in a row\n", n);
+			printk("error: got same random number %d twice in a row\n", n);
 			TEST_EXIT(1);
 		}
 		p = n;
