@@ -12,7 +12,7 @@ pid_t gettid(void);
 int nanosleep(const struct timespec *req, struct timespec *rem);
 int tgkill(int tgid, int tid, int sig);
 
-static pid_t other_tid;
+static pid_t other_tid = -1;
 
 static void handler(int sig)
 {
@@ -22,13 +22,17 @@ static void handler(int sig)
 static void *fn(void *arg)
 {
 	struct timespec req, rem;
-
 	req.tv_sec = 1;
 	req.tv_nsec = 0;
 
 	other_tid = gettid();
+
+	// The syscall will be interrupted by the main thread
 	if (nanosleep(&req, &rem) != -EINTR)
 		TEST_EXIT(1);
+
+	// Test is interrupted before timer has expired, there must
+	// be some time remaining
 	if (!rem.tv_sec && !rem.tv_nsec)
 		TEST_EXIT(1);
 
@@ -47,9 +51,16 @@ int main(void)
 		TEST_EXIT(1);
 	if (pthread_create(&thread, NULL, fn, NULL))
 		TEST_EXIT(1);
-	sched_yield();
+
+	while (other_tid == -1)
+		sched_yield();
+
+	// Interrupt the other thread
 	if (tgkill(getpid(), other_tid, SIGUSR1))
 		TEST_EXIT(1);
+
+	// Join to make sure there other thread was interrupted with
+	// some time remaining
 	if (pthread_join(thread, &retval))
 		TEST_EXIT(1);
 
