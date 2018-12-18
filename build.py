@@ -88,6 +88,7 @@ testsuite = [
     "futex_1",
     "futex_2",
     "futex_3",
+    "futex_4",
     "mqueue_1",
 ]
 
