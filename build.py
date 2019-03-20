@@ -91,6 +91,7 @@ testsuite = [
     "futex_4",
     "mqueue_1",
     "mqueue_2",
+    "mqueue_3",
 ]
 
 blacklist = [
