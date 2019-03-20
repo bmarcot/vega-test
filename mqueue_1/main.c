@@ -33,7 +33,7 @@ int main(void)
 	pthread_t tip;
 	mqd_t mqdes;
 
-	mqdes = mq_open("my_queue", O_CREAT);
+	mqdes = mq_open("my_queue", O_CREAT, 0, NULL);
 	if (mqdes == -1) {
 		printk("Cannot create message queue");
 		TEST_EXIT(1);
