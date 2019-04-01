@@ -92,6 +92,7 @@ testsuite = [
     "mqueue_1",
     "mqueue_2",
     "mqueue_3",
+    "ioctl_1",
 ]
 
 blacklist = [
